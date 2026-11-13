@@ -5,45 +5,61 @@ module bus_icc_arbiter (
     input  logic       hreset_n_i,
     input  logic       hsel_granted_master_i,
     input  logic [1:0] htrans_granted_master_i,
-    input  logic       hmastlock_valid_granted_master_i,
     input  logic       xfer_req_valid_cm3_ibus_i,
     input  logic       xfer_req_valid_cm3_dbus_i,
     input  logic       xfer_req_valid_cm3_sbus_i,
+    input  logic       xfer_seq_lock_active_i,
     input  logic       hready_slave_i,
     output logic [1:0] granted_master_code_o,
     output logic       granted_master_null_o
 );
+    localparam int IBUS_CODE   = 2'b00;
+    localparam int DBUS_CODE   = 2'b01;
+    localparam int SBUS_CODE   = 2'b10;
+
+    localparam int HTRANS_BUSY = 2'b01;
+
     logic [1:0] granted_master_code;
     logic [1:0] granted_master_code_next;
     logic       granted_master_null;
     logic       granted_master_null_next;
 
-    always_comb begin
-        granted_master_code_next = granted_master_code;
-        granted_master_null_next = 1'b0;
+    logic xfer_busy_cm3_ibus;
+    logic xfer_busy_cm3_dbus;
+    logic xfer_busy_cm3_sbus;
 
-        if (hmastlock_valid_granted_master_i) begin
-            granted_master_code_next = granted_master_code;
-        end else if (xfer_req_valid_cm3_ibus_i || (hsel_granted_master_i && (granted_master_code == 2'b00) && (htrans_granted_master_i != 2'b00))) begin
-            granted_master_code_next = 2'b00;
-        end else if (xfer_req_valid_cm3_dbus_i || (hsel_granted_master_i && (granted_master_code == 2'b01) && (htrans_granted_master_i != 2'b00))) begin
-            granted_master_code_next = 2'b01;
-        end else if (xfer_req_valid_cm3_sbus_i || (hsel_granted_master_i && (granted_master_code == 2'b10) && (htrans_granted_master_i != 2'b00))) begin
-            granted_master_code_next = 2'b10;
-        end else if (hsel_granted_master_i) begin
-            granted_master_code_next = granted_master_code;
-        end else begin
-            granted_master_null_next = 1'b1;
-        end
-    end
+    assign xfer_busy_cm3_ibus = hsel_granted_master_i && (granted_master_code == IBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
+    assign xfer_busy_cm3_dbus = hsel_granted_master_i && (granted_master_code == DBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
+    assign xfer_busy_cm3_sbus = hsel_granted_master_i && (granted_master_code == SBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
 
     always_ff @(posedge hclk_i or negedge hreset_n_i) begin
         if (!hreset_n_i) begin
-            granted_master_code <= 2'b00;
+            granted_master_code <= IBUS_CODE;
             granted_master_null <= 1'b1;
         end else if (hready_slave_i) begin
             granted_master_code <= granted_master_code_next;
             granted_master_null <= granted_master_null_next;
+        end
+    end
+
+    always_comb begin
+        granted_master_code_next = granted_master_code;
+        granted_master_null_next = 1'b0;
+
+        if (xfer_seq_lock_active_i) begin
+            granted_master_code_next = granted_master_code;
+        end else begin
+            if (xfer_req_valid_cm3_ibus_i || xfer_busy_cm3_ibus) begin
+                granted_master_code_next = IBUS_CODE;
+            end else if (xfer_req_valid_cm3_dbus_i || xfer_busy_cm3_dbus) begin
+                granted_master_code_next = DBUS_CODE;
+            end else if (xfer_req_valid_cm3_sbus_i || xfer_busy_cm3_sbus) begin
+                granted_master_code_next = SBUS_CODE;
+            end else if (hsel_granted_master_i) begin
+                granted_master_code_next = granted_master_code;
+            end else begin
+                granted_master_null_next = 1'b1;
+            end
         end
     end
 

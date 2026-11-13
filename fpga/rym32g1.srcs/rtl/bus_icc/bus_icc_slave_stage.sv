@@ -90,10 +90,10 @@ module bus_icc_slave_stage (
     logic        hready;
     logic [31:0] hwdata;
     
-    /* Generate HMASTLOCK valid signal */
+    /* Generate locked sequence active signal */
     logic lock;
     logic lock_next;
-    logic hmastlock_valid;
+    logic xfer_seq_lock_active;
 
     always_ff @(posedge hclk_i or negedge hreset_n_i) begin
         if (!hreset_n_i) begin
@@ -113,24 +113,24 @@ module bus_icc_slave_stage (
         end
     end
 
-    assign hmastlock_valid = hmastlock && (hsel || lock);
+    assign xfer_seq_lock_active = hmastlock && (hsel || lock);
 
     /* Arbiter */
     logic [1:0] granted_master_code;
     logic       granted_master_null;
     
     bus_icc_arbiter bus_icc_arbiter_inst (
-        .hclk_i                           (hclk_i),
-        .hreset_n_i                       (hreset_n_i),
-        .hsel_granted_master_i            (hsel),
-        .htrans_granted_master_i          (htrans),
-        .hmastlock_valid_granted_master_i (hmastlock_valid),
-        .xfer_req_valid_cm3_ibus_i        (xfer_req_valid_cm3_ibus),
-        .xfer_req_valid_cm3_dbus_i        (xfer_req_valid_cm3_dbus),
-        .xfer_req_valid_cm3_sbus_i        (xfer_req_valid_cm3_sbus),
-        .hready_slave_i                   (hready),
-        .granted_master_code_o            (granted_master_code),
-        .granted_master_null_o            (granted_master_null)
+        .hclk_i                     (hclk_i),
+        .hreset_n_i                 (hreset_n_i),
+        .hsel_granted_master_i      (hsel),
+        .htrans_granted_master_i    (htrans),
+        .xfer_req_valid_cm3_ibus_i  (xfer_req_valid_cm3_ibus),
+        .xfer_req_valid_cm3_dbus_i  (xfer_req_valid_cm3_dbus),
+        .xfer_req_valid_cm3_sbus_i  (xfer_req_valid_cm3_sbus),
+        .xfer_seq_lock_active_i     (xfer_seq_lock_active),
+        .hready_slave_i             (hready),
+        .granted_master_code_o      (granted_master_code),
+        .granted_master_null_o      (granted_master_null)
     );
     
     /* Select address / data phase master */
