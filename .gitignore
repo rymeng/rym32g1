@@ -5,14 +5,17 @@
 **/*.ip_user_files
 **/*.runs
 **/*.sim
+**/xsim.dir
+/.tmp_*
 *.dcp
-dfx_runtime.txt
 *.jou
 *.log
+*.pb
+dfx_runtime.txt
 
-# ARM Cortex M0 Design Start Code
-cortexm0ds_logic.v
-CORTEXM0INTEGRATION.v
+# ARM Cortex M3 Design Start
+cortexm3ds_logic.v
+CORTEXM3INTEGRATIONDS.v
 
 # Editor
 **/.vscode
@@ -39,6 +42,7 @@ CORTEXM0INTEGRATION.v
 JLinkLog.txt
 JLinkSettings.ini
 
-# Agent
+# Others
 **/.dsh
+**/.temp
 **/.github

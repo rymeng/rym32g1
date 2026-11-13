@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flash_device>
+  <exe>rym32g1_flash_bank.out</exe>
+  <page>0x8</page>
+  <block>64 0x400</block>
+  <flash_base>0x0</flash_base>
+  <online>1</online>
+  <aggregate>1</aggregate>
+</flash_device>

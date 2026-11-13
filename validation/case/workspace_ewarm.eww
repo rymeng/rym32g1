@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workspace>
+  <project>
+    <path>$WS_DIR$\..\gpio\gpio_toggle\ewarm\gpio_toggle.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\..\template\template\ewarm\template.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\..\uart\uart_redirect_stdout\ewarm\uart_redirect_stdout.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>workspace_ewarm</name>
+      <member>
+        <project>gpio_toggle</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>template</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>uart_redirect_stdout</project>
+        <configuration>Release</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>

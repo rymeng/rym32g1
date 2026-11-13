@@ -1,0 +1,2731 @@
+<?xml version='1.0' encoding='utf-8'?>
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+  <name>rym32g1</name>
+  <version>1</version>
+  <series>RYM32</series>
+  <vendor>Rainer Yutai Meng</vendor>
+  <vendorID>RYM</vendorID>
+  <description>ARM Cortex-M3 Microcontroller</description>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <size>32</size>
+  <access>read-write</access>
+  <resetValue>0x0</resetValue>
+  <resetMask>0x0</resetMask>
+  <cpu>
+    <name>CM3</name>
+    <revision>r2p1</revision>
+    <endian>little</endian>
+    <nvicPrioBits>4</nvicPrioBits>
+    <vendorSystickConfig>false</vendorSystickConfig>
+    <mpuPresent>true</mpuPresent>
+    <fpuPresent>false</fpuPresent>
+    <fpuDP>false</fpuDP>
+    <icachePresent>false</icachePresent>
+    <dcachePresent>false</dcachePresent>
+    <itcmPresent>false</itcmPresent>
+    <dtcmPresent>false</dtcmPresent>
+  </cpu>
+  <peripherals>
+    <peripheral>
+      <name>FMC</name>
+      <baseAddress>0x400B1000</baseAddress>
+      <description>Flash Memory Controller</description>
+      <groupName>FMC</groupName>
+      <headerStructName>FMC</headerStructName>
+      <size>0x00000FFF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x00000FFF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>ACR</name>
+          <addressOffset>0x00000000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>FMC Access Control Register</description>
+          <fields>
+            <field>
+              <name>LATENCY</name>
+              <msb>3</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>FMC ACR LATENCY [3:0] Bits: Access latency</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>KEYR</name>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>FMC Key Register</description>
+          <fields>
+            <field>
+              <name>KEY</name>
+              <msb>31</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>FMC KEYR KEY [31:0] Bits: Unlock key</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CR1</name>
+          <addressOffset>0x00000008</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>FMC Control Register 1</description>
+          <fields>
+            <field>
+              <name>LOCK</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>FMC CR1 LOCK Bit: Lock FMC</description>
+            </field>
+            <field>
+              <name>BEREN</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>FMC CR1 BEREN Bit: Enable / Disable bank erasing</description>
+            </field>
+            <field>
+              <name>SEREN</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>FMC CR1 SEREN Bit: Enable / Disable sector erasing</description>
+            </field>
+            <field>
+              <name>PGEN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>FMC CR1 PGEN Bit: Enable / Disable programming</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name> CR2</name>
+          <addressOffset>0x0000000C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>FMC Control Register 2</description>
+          <fields>
+            <field>
+              <name>START</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>FMC  CR2 START Bit: Start erasing</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AR</name>
+          <addressOffset>0x00000040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>FMC Address Register</description>
+          <fields>
+            <field>
+              <name>ADDR</name>
+              <msb>31</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>FMC AR ADDR [31:0] Bits: Sector erasing address</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SR</name>
+          <addressOffset>0x00000080</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>FMC Status Register</description>
+          <fields>
+            <field>
+              <name>PGBUFNF</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-only</access>
+              <description>FMC SR PGBUFNF Bit: Programming buf not full</description>
+            </field>
+            <field>
+              <name>BUSY</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>FMC SR BUSY Bit: FMC busy</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ISR</name>
+          <addressOffset>0x00000104</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>FMC Interrupt Status Register</description>
+          <fields>
+            <field>
+              <name>PGNALN</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-only</access>
+              <description>FMC ISR PGNALN Bit: Programming address not aligned</description>
+            </field>
+            <field>
+              <name>PGERR</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-only</access>
+              <description>FMC ISR PGERR Bit: Programming page error</description>
+            </field>
+            <field>
+              <name>DONE</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>FMC ISR DONE Bit: FMC done</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ICR</name>
+          <addressOffset>0x00000108</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>FMC Interrupt Clear Register</description>
+          <fields>
+            <field>
+              <name>PGNALN</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>write-only</access>
+              <description>FMC ICR PGNALN Bit: Clear ISR.PGNALN</description>
+            </field>
+            <field>
+              <name>PGERR</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>write-only</access>
+              <description>FMC ICR PGERR Bit: Clear ISR.PGERR</description>
+            </field>
+            <field>
+              <name>DONE</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>FMC ICR DONE Bit: Clear ISR.DONE</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GPIOA</name>
+      <baseAddress>0x40080000</baseAddress>
+      <description>General Purpose Input Output A</description>
+      <groupName>GPIO</groupName>
+      <headerStructName>GPIO</headerStructName>
+      <size>0x000003FF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x000003FF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>PADR</name>
+          <addressOffset>0x00000000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>GPIOA Pad Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN15 Bit: Enable / Disable open drain mode for pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN14 Bit: Enable / Disable open drain mode for pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN13 Bit: Enable / Disable open drain mode for pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN12 Bit: Enable / Disable open drain mode for pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN11 Bit: Enable / Disable open drain mode for pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN10 Bit: Enable / Disable open drain mode for pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN09 Bit: Enable / Disable open drain mode for pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN08 Bit: Enable / Disable open drain mode for pin 8</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN07 Bit: Enable / Disable open drain mode for pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN06 Bit: Enable / Disable open drain mode for pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN05 Bit: Enable / Disable open drain mode for pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN04 Bit: Enable / Disable open drain mode for pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN03 Bit: Enable / Disable open drain mode for pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN02 Bit: Enable / Disable open drain mode for pin 2</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN01 Bit: Enable / Disable open drain mode for pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>GPIOA PADR PIN00 Bit: Enable / Disable open drain mode for pin 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AFR1</name>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>GPIOA Alternate Function Register 1</description>
+          <fields>
+            <field>
+              <name>PIN07</name>
+              <msb>31</msb>
+              <lsb>28</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN07 [3:0] Bits: Alternate function code for pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>27</msb>
+              <lsb>24</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN06 [3:0] Bits: Alternate function code for pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>23</msb>
+              <lsb>20</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN05 [3:0] Bits: Alternate function code for pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>19</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN04 [3:0] Bits: Alternate function code for pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>15</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN03 [3:0] Bits: Alternate function code for pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>11</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN02 [3:0] Bits: Alternate function code for pin 2</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>7</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN10 [3:0] Bits: Alternate function code for pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>3</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR1 PIN00 [3:0] Bits: Alternate function code for pin 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AFR2</name>
+          <addressOffset>0x00000008</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>GPIOA Alternate Function Register 2</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>31</msb>
+              <lsb>28</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN15 [3:0] Bits: Alternate function code for pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>27</msb>
+              <lsb>24</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN14 [3:0] Bits: Alternate function code for pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>23</msb>
+              <lsb>20</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN13 [3:0] Bits: Alternate function code for pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>19</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN12 [3:0] Bits: Alternate function code for pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>15</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN11 [3:0] Bits: Alternate function code for pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>11</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN10 [3:0] Bits: Alternate function code for pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>7</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN09 [3:0] Bits: Alternate function code for pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>3</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>GPIOA AFR2 PIN08 [3:0] Bits: Alternate function code for pin 8</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GPMODER</name>
+          <addressOffset>0x0000000C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>GPIOA Generate Purpose IO Mode Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN15 Bit: Select input / output mode for pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN14 Bit: Select input / output mode for pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN13 Bit: Select input / output mode for pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN12 Bit: Select input / output mode for pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN11 Bit: Select input / output mode for pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN10 Bit: Select input / output mode for pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN09 Bit: Select input / output mode for pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN08 Bit: Select input / output mode for pin 8</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN07 Bit: Select input / output mode for pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN06 Bit: Select input / output mode for pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN05 Bit: Select input / output mode for pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN04 Bit: Select input / output mode for pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN03 Bit: Select input / output mode for pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN02 Bit: Select input / output mode for pin 2</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN01 Bit: Select input / output mode for pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>GPIOA GPMODER PIN00 Bit: Select input / output mode for pin 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IDR</name>
+          <addressOffset>0x00000040</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>GPIOA Input Data Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN15 Bit: Pin 15 input data</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN14 Bit: Pin 14 input data</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN13 Bit: Pin 13 input data</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN12 Bit: Pin 12 input data</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN11 Bit: Pin 11 input data</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN10 Bit: Pin 10 input data</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN09 Bit: Pin 9 input data</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN08 Bit: Pin 8 input data</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN07 Bit: Pin 7 input data</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN06 Bit: Pin 6 input data</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN05 Bit: Pin 5 input data</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN04 Bit: Pin 4 input data</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN03 Bit: Pin 3 input data</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN02 Bit: Pin 2 input data</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN01 Bit: Pin 1 input data</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>GPIOA IDR PIN00 Bit: Pin 0 input data</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ODR</name>
+          <addressOffset>0x00000044</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>GPIOA Output Data Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN15 Bit: Pin 15 output data</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN14 Bit: Pin 14 output data</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN13 Bit: Pin 13 output data</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN12 Bit: Pin 12 output data</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN11 Bit: Pin 11 output data</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN10 Bit: Pin 10 output data</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN09 Bit: Pin 9 output data</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN08 Bit: Pin 8 output data</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN07 Bit: Pin 7 output data</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN06 Bit: Pin 6 output data</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN05 Bit: Pin 5 output data</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN04 Bit: Pin 4 output data</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN03 Bit: Pin 3 output data</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN02 Bit: Pin 2 output data</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN01 Bit: Pin 1 output data</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>GPIOA ODR PIN00 Bit: Pin 0 output data</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BSETR</name>
+          <addressOffset>0x00000048</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>GPIOA Bit Set Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN15 Bit: Set pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN14 Bit: Set pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN13 Bit: Set pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN12 Bit: Set pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN11 Bit: Set pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN10 Bit: Set pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN09 Bit: Set pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN08 Bit: Set pin 8</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN07 Bit: Set pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN06 Bit: Set pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN05 Bit: Set pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN04 Bit: Set pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN03 Bit: Set pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN02 Bit: Set pin 2</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN01 Bit: Set pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>GPIOA BSETR PIN00 Bit: Set pin 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BRSTR</name>
+          <addressOffset>0x0000004C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>GPIOA Bit Reset Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN15 Bit: Reset pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN14 Bit: Reset pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN13 Bit: Reset pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN12 Bit: Reset pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN11 Bit: Reset pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN10 Bit: Reset pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN09 Bit: Reset pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN08 Bit: Reset pin 8</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN07 Bit: Reset pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN06 Bit: Reset pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN05 Bit: Reset pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN04 Bit: Reset pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN03 Bit: Reset pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN02 Bit: Reset pin 2</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN01 Bit: Reset pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>GPIOA BRSTR PIN00 Bit: Reset pin 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BTOGR</name>
+          <addressOffset>0x00000050</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>GPIOA Bit Toggle Register</description>
+          <fields>
+            <field>
+              <name>PIN15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN15 Bit: Toggle pin 15</description>
+            </field>
+            <field>
+              <name>PIN14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN14 Bit: Toggle pin 14</description>
+            </field>
+            <field>
+              <name>PIN13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN13 Bit: Toggle pin 13</description>
+            </field>
+            <field>
+              <name>PIN12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN12 Bit: Toggle pin 12</description>
+            </field>
+            <field>
+              <name>PIN11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN11 Bit: Toggle pin 11</description>
+            </field>
+            <field>
+              <name>PIN10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN10 Bit: Toggle pin 10</description>
+            </field>
+            <field>
+              <name>PIN09</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN09 Bit: Toggle pin 9</description>
+            </field>
+            <field>
+              <name>PIN08</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN08 Bit: Toggle pin 8</description>
+            </field>
+            <field>
+              <name>PIN07</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN07 Bit: Toggle pin 7</description>
+            </field>
+            <field>
+              <name>PIN06</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN06 Bit: Toggle pin 6</description>
+            </field>
+            <field>
+              <name>PIN05</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN05 Bit: Toggle pin 5</description>
+            </field>
+            <field>
+              <name>PIN04</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN04 Bit: Toggle pin 4</description>
+            </field>
+            <field>
+              <name>PIN03</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN03 Bit: Toggle pin 3</description>
+            </field>
+            <field>
+              <name>PIN02</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN02 Bit: Toggle pin 2</description>
+            </field>
+            <field>
+              <name>PIN01</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN01 Bit: Toggle pin 1</description>
+            </field>
+            <field>
+              <name>PIN00</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>GPIOA BTOGR PIN00 Bit: Toggle pin 0</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral derivedFrom="GPIOA">
+      <name>GPIOB</name>
+      <baseAddress>0x40080400</baseAddress>
+      <description>General Purpose Input Output B</description>
+    </peripheral>
+    <peripheral>
+      <name>RCC</name>
+      <baseAddress>0x400B0000</baseAddress>
+      <description>Reset and Clock Controller</description>
+      <groupName>RCC</groupName>
+      <headerStructName>RCC</headerStructName>
+      <size>0x00000FFF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x00000FFF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>AHBENR1</name>
+          <addressOffset>0x00000040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>RCC AHB Peripheral Enable Register 1</description>
+          <fields>
+            <field>
+              <name>GPIOBENA</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>RCC AHBENR1 GPIOBENA Bit: Enable / Disable GPIOB</description>
+            </field>
+            <field>
+              <name>GPIOAENA</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>RCC AHBENR1 GPIOAENA Bit: Enable / Disable GPIOA</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AHBENR2</name>
+          <addressOffset>0x00000044</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>RCC AHB Peripheral Enable Register 2</description>
+          <fields>
+            <field>
+              <name>TUART1ENA</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>RCC AHBENR2 TUART1ENA Bit: Enable / Disable TUART1</description>
+            </field>
+            <field>
+              <name>UART2ENA</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>RCC AHBENR2 UART2ENA Bit: Enable / Disable UART2</description>
+            </field>
+            <field>
+              <name>UART1ENA</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>RCC AHBENR2 UART1ENA Bit: Enable / Disable UART1</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AHBRSTR1</name>
+          <addressOffset>0x00000080</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>RCC AHB Peripheral Reset Register 1</description>
+          <fields>
+            <field>
+              <name>GPIOBRST</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>RCC AHBRSTR1 GPIOBRST Bit: Enable / Disable GPIOB</description>
+            </field>
+            <field>
+              <name>GPIOARST</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>RCC AHBRSTR1 GPIOARST Bit: Enable / Disable GPIOA</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>AHBRSTR2</name>
+          <addressOffset>0x00000084</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>RCC AHB Peripheral Reset Register 2</description>
+          <fields>
+            <field>
+              <name>TUART1RST</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>RCC AHBRSTR2 TUART1RST Bit: Enable / Disable TUART1</description>
+            </field>
+            <field>
+              <name>UART2RST</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>RCC AHBRSTR2 UART2RST Bit: Enable / Disable UART2</description>
+            </field>
+            <field>
+              <name>UART1RST</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>RCC AHBRSTR2 UART1RST Bit: Enable / Disable UART1</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>TUART1</name>
+      <baseAddress>0x40000800</baseAddress>
+      <description>Test Universal Synchronous Receiver Transmitter 1</description>
+      <groupName>TUART</groupName>
+      <headerStructName>TUART</headerStructName>
+      <size>0x000003FF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x000003FF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>BRR</name>
+          <addressOffset>0x00000000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>TUART1 Baud Rate Register</description>
+          <fields>
+            <field>
+              <name>OSR</name>
+              <msb>21</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>TUART1 BRR OSR [5:0] Bits: Oversampling Rate</description>
+            </field>
+            <field>
+              <name>PSC</name>
+              <msb>15</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>TUART1 BRR PSC [15:0] Bits: Prescaler division factor of baud rate generator</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CR1</name>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>TUART1 Control Register 1</description>
+          <fields>
+            <field>
+              <name>STOPLEN</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>TUART1 CR1 STOPLEN Bit: Stop bit(s) length</description>
+            </field>
+            <field>
+              <name>PARITYTYPE</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>TUART1 CR1 PARITYTYPE Bit: Parity type</description>
+            </field>
+            <field>
+              <name>PARITYENA</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>TUART1 CR1 PARITYENA Bit: Enable / Disable parity bit</description>
+            </field>
+            <field>
+              <name>DATALEN</name>
+              <msb>2</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>TUART1 CR1 DATALEN [2:0] Bits: Data bit(s) length</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CR2</name>
+          <addressOffset>0x00000008</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>TUART1 Control Register 2</description>
+          <fields>
+            <field>
+              <name>TXENA</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>TUART1 CR2 TXENA Bit: Enable / Disable TX sub-system</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>NICR[%s]</name>
+          <addressOffset>0x00000020</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>TUART1 Noise Injection Control Register X</description>
+          <dim>12</dim>
+          <dimIncrement>0x00000004</dimIncrement>
+          <fields>
+            <field>
+              <name>SP31</name>
+              <msb>31</msb>
+              <lsb>31</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP31 Bit: Noise at sampling point 31</description>
+            </field>
+            <field>
+              <name>SP30</name>
+              <msb>30</msb>
+              <lsb>30</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP30 Bit: Noise at sampling point 30</description>
+            </field>
+            <field>
+              <name>SP29</name>
+              <msb>29</msb>
+              <lsb>29</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP29 Bit: Noise at sampling point 29</description>
+            </field>
+            <field>
+              <name>SP28</name>
+              <msb>28</msb>
+              <lsb>28</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP28 Bit: Noise at sampling point 28</description>
+            </field>
+            <field>
+              <name>SP27</name>
+              <msb>27</msb>
+              <lsb>27</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP27 Bit: Noise at sampling point 27</description>
+            </field>
+            <field>
+              <name>SP26</name>
+              <msb>26</msb>
+              <lsb>26</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP26 Bit: Noise at sampling point 26</description>
+            </field>
+            <field>
+              <name>SP25</name>
+              <msb>25</msb>
+              <lsb>25</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP25 Bit: Noise at sampling point 25</description>
+            </field>
+            <field>
+              <name>SP24</name>
+              <msb>24</msb>
+              <lsb>24</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP24 Bit: Noise at sampling point 24</description>
+            </field>
+            <field>
+              <name>SP23</name>
+              <msb>23</msb>
+              <lsb>23</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP23 Bit: Noise at sampling point 23</description>
+            </field>
+            <field>
+              <name>SP22</name>
+              <msb>22</msb>
+              <lsb>22</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP22 Bit: Noise at sampling point 22</description>
+            </field>
+            <field>
+              <name>SP21</name>
+              <msb>21</msb>
+              <lsb>21</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP21 Bit: Noise at sampling point 21</description>
+            </field>
+            <field>
+              <name>SP20</name>
+              <msb>20</msb>
+              <lsb>20</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP20 Bit: Noise at sampling point 20</description>
+            </field>
+            <field>
+              <name>SP19</name>
+              <msb>19</msb>
+              <lsb>19</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP19 Bit: Noise at sampling point 19</description>
+            </field>
+            <field>
+              <name>SP18</name>
+              <msb>18</msb>
+              <lsb>18</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP18 Bit: Noise at sampling point 18</description>
+            </field>
+            <field>
+              <name>SP17</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP17 Bit: Noise at sampling point 17</description>
+            </field>
+            <field>
+              <name>SP16</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP16 Bit: Noise at sampling point 16</description>
+            </field>
+            <field>
+              <name>SP15</name>
+              <msb>15</msb>
+              <lsb>15</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP15 Bit: Noise at sampling point 15</description>
+            </field>
+            <field>
+              <name>SP14</name>
+              <msb>14</msb>
+              <lsb>14</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP14 Bit: Noise at sampling point 14</description>
+            </field>
+            <field>
+              <name>SP13</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP13 Bit: Noise at sampling point 13</description>
+            </field>
+            <field>
+              <name>SP12</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP12 Bit: Noise at sampling point 12</description>
+            </field>
+            <field>
+              <name>SP11</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP11 Bit: Noise at sampling point 11</description>
+            </field>
+            <field>
+              <name>SP10</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP10 Bit: Noise at sampling point 10</description>
+            </field>
+            <field>
+              <name>SP9</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP9 Bit: Noise at sampling point 9</description>
+            </field>
+            <field>
+              <name>SP8</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP8 Bit: Noise at sampling point 8</description>
+            </field>
+            <field>
+              <name>SP7</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP7 Bit: Noise at sampling point 7</description>
+            </field>
+            <field>
+              <name>SP6</name>
+              <msb>6</msb>
+              <lsb>6</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP6 Bit: Noise at sampling point 6</description>
+            </field>
+            <field>
+              <name>SP5</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP5 Bit: Noise at sampling point 5</description>
+            </field>
+            <field>
+              <name>SP4</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP4 Bit: Noise at sampling point 4</description>
+            </field>
+            <field>
+              <name>SP3</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP3 Bit: Noise at sampling point 3</description>
+            </field>
+            <field>
+              <name>SP2</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP2 Bit: Noise at sampling point 2</description>
+            </field>
+            <field>
+              <name>SP1</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP1 Bit: Noise at sampling point 1</description>
+            </field>
+            <field>
+              <name>SP0</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>TUART1 NICR[%s] SP0 Bit: Noise at sampling point 0</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TDR</name>
+          <addressOffset>0x00000060</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>TUART1 TX Data Register</description>
+          <fields>
+            <field>
+              <name>NI</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>TUART1 TDR NI Bit: Inject noise</description>
+            </field>
+            <field>
+              <name>STOP2FEI</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>TUART1 TDR STOP2FEI Bit: Inject frame error at stop bit 2</description>
+            </field>
+            <field>
+              <name>STOP1FEI</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>TUART1 TDR STOP1FEI Bit: Inject frame error at stop bit 1</description>
+            </field>
+            <field>
+              <name>PEI</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>TUART1 TDR PEI Bit: Inject parity error</description>
+            </field>
+            <field>
+              <name>DATA</name>
+              <msb>7</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>TUART1 TDR DATA [7:0] Bits: Data</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SR1</name>
+          <addressOffset>0x00000080</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>TUART1 Status Register 1</description>
+          <fields>
+            <field>
+              <name>TXRDY</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>TUART1 SR1 TXRDY Bit: TX data register empty flag</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>UART1</name>
+      <baseAddress>0x40000000</baseAddress>
+      <description>Universal Synchronous Receiver Transmitter 1</description>
+      <groupName>UART</groupName>
+      <headerStructName>UART</headerStructName>
+      <size>0x000003FF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x000003FF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>CR1</name>
+          <addressOffset>0x00000000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Control Register 1</description>
+          <fields>
+            <field>
+              <name>STOPLEN</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-write</access>
+              <description>UART1 CR1 STOPLEN Bit: Select stop bit(s) length</description>
+            </field>
+            <field>
+              <name>PARITYTYPE</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>UART1 CR1 PARITYTYPE Bit: Select parity type</description>
+            </field>
+            <field>
+              <name>PARITYEN</name>
+              <msb>3</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>UART1 CR1 PARITYEN Bit: Enable / Disable parity bit</description>
+            </field>
+            <field>
+              <name>DATALEN</name>
+              <msb>2</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 CR1 DATALEN [2:0] Bits: Select data bit(s) length</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CR2</name>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Control Register 2</description>
+          <fields>
+            <field>
+              <name>RXEN</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 CR2 RXEN Bit: Enable / Disable RX sub-system</description>
+            </field>
+            <field>
+              <name>TXEN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 CR2 TXEN Bit: Enable / Disable TX sub-system</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>FIFOCR1</name>
+          <addressOffset>0x00000008</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 FIFO Control Register 1</description>
+          <fields>
+            <field>
+              <name>RXFIFOWL</name>
+              <msb>21</msb>
+              <lsb>17</lsb>
+              <access>read-write</access>
+              <description>UART1 FIFOCR1 RXFIFOWL [4:0] Bits: Select RXFIFO waterline</description>
+            </field>
+            <field>
+              <name>RXFIFOEN</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>UART1 FIFOCR1 RXFIFOEN Bit: Enable / Disable RXFIFO</description>
+            </field>
+            <field>
+              <name>TXFIFOWL</name>
+              <msb>5</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 FIFOCR1 TXFIFOWL [4:0] Bits: Select TXFIFO waterline</description>
+            </field>
+            <field>
+              <name>TXFIFOEN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 FIFOCR1 TXFIFOEN Bit: Enable / Disable TXFIFO</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>FIFOCR2</name>
+          <addressOffset>0x0000000C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>UART1 FIFO Control Register 2</description>
+          <fields>
+            <field>
+              <name>RXFIFOFLUSH</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>write-only</access>
+              <description>UART1 FIFOCR2 RXFIFOFLUSH Bit: Flush RXFIFO</description>
+            </field>
+            <field>
+              <name>TXFIFOFLUSH</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>UART1 FIFOCR2 TXFIFOFLUSH Bit: Flush TXFIFO</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IDLECR</name>
+          <addressOffset>0x00000014</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Idle Detection Control Register</description>
+          <fields>
+            <field>
+              <name>TH</name>
+              <msb>3</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 IDLECR TH [2:0] Bits: Select IDLE detection threshold</description>
+            </field>
+            <field>
+              <name>TYPE</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 IDLECR TYPE Bit: Select IDLE detection type</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>HFCCR</name>
+          <addressOffset>0x00000018</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Hardware Flow Control Register</description>
+          <fields>
+            <field>
+              <name>CTSSMPMODE</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR CTSSMPMODE Bit: Select CTS sampling mode</description>
+            </field>
+            <field>
+              <name>CTSSRC</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR CTSSRC Bit: Select CTS source (1 = align with RX standby state)</description>
+            </field>
+            <field>
+              <name>CTSEN</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR CTSEN Bit: Enable / Disable CTS</description>
+            </field>
+            <field>
+              <name>RTS1WL</name>
+              <msb>4</msb>
+              <lsb>3</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR RTS1WL [1:0] Bits: Select RTS mode1 (RX) waterline</description>
+            </field>
+            <field>
+              <name>RTS0EN</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR RTS0EN Bit: Enable / Disable RTS mode0 (TX)</description>
+            </field>
+            <field>
+              <name>RTSPOL</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR RTSPOL Bit: Select RTS polarity</description>
+            </field>
+            <field>
+              <name>RTS1EN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 HFCCR RTS1EN Bit: Enable / Disable RTS mode1 (RX)</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LINCR</name>
+          <addressOffset>0x0000001C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 LIN Control Register</description>
+          <fields>
+            <field>
+              <name>BRKDETEN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 LINCR BRKDETEN Bit: Enable / Disable LIN break Detection</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MPCCR</name>
+          <addressOffset>0x00000020</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Multi Processor Control Register</description>
+          <fields>
+            <field>
+              <name>FWK</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>write-only</access>
+              <description>UART1 MPCCR FWK Bit: Force wake up</description>
+            </field>
+            <field>
+              <name>FSTBY</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>write-only</access>
+              <description>UART1 MPCCR FSTBY Bit: Force standby</description>
+            </field>
+            <field>
+              <name>IDLEMODE</name>
+              <msb>4</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>UART1 MPCCR IDLEMODE Bit: Select IDLE flag setting on standby wakeup (MATCHMODE=00)</description>
+            </field>
+            <field>
+              <name>MATCHMODE</name>
+              <msb>3</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>UART1 MPCCR MATCHMODE [1:0] Bits: Select match mode</description>
+            </field>
+            <field>
+              <name>MATCH2EN</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 MPCCR MATCH2EN Bit: Enable / Disable match buffer 2</description>
+            </field>
+            <field>
+              <name>MATCH1EN</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 MPCCR MATCH1EN Bit: Enable / Disable match buffer 1</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PHYCR</name>
+          <addressOffset>0x00000024</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Physical Layer Control Register</description>
+          <fields>
+            <field>
+              <name>MSBF</name>
+              <msb>24</msb>
+              <lsb>24</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR MSBF Bit: Enable / Disable most significant bit first mode</description>
+            </field>
+            <field>
+              <name>RESYNCDIS</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR RESYNCDIS Bit: Disable / Enable resynchronization</description>
+            </field>
+            <field>
+              <name>DESEN</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR DESEN Bit: Enable / Disable dual edge sampling mode</description>
+            </field>
+            <field>
+              <name>RXDSRC</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR RXDSRC Bit: Select RXD source in un-full-duplex communication mode</description>
+            </field>
+            <field>
+              <name>RXDPOL</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR RXDPOL Bit: Select RXD polarity</description>
+            </field>
+            <field>
+              <name>TXDDIR</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR TXDDIR Bit: Select TXD direction in half-duplex mode</description>
+            </field>
+            <field>
+              <name>TXDPOL</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR TXDPOL Bit: Select TXD polarity</description>
+            </field>
+            <field>
+              <name>SWAP</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR SWAP Bit: Swap TXD / RXD</description>
+            </field>
+            <field>
+              <name>CMODE</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 PHYCR CMODE Bit: Enable / Disable un-full-duplex communication mode</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BRR</name>
+          <addressOffset>0x00000040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Baud Rate Register</description>
+          <fields>
+            <field>
+              <name>DIVMANT</name>
+              <msb>16</msb>
+              <lsb>4</lsb>
+              <access>read-write</access>
+              <description>UART1 BRR DIVMANT [12:0] Bits: Baud rate divider (mantissa)</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>OSRR</name>
+          <addressOffset>0x00000044</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Oversampling Ratio Register</description>
+          <fields>
+            <field>
+              <name>OSR</name>
+              <msb>5</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 OSRR OSR [5:0] Bits: Oversampling ratio</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SR</name>
+          <addressOffset>0x00000080</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>UART1 Status Register</description>
+          <fields>
+            <field>
+              <name>RXSTBY</name>
+              <msb>23</msb>
+              <lsb>23</lsb>
+              <access>read-only</access>
+              <description>UART1 SR RXSTBY Bit: RX standby</description>
+            </field>
+            <field>
+              <name>RXACT</name>
+              <msb>22</msb>
+              <lsb>22</lsb>
+              <access>read-only</access>
+              <description>UART1 SR RXACT Bit: RX active: valid start bit received (majority vote passed); holds until a full idle line is detected or RE=0</description>
+            </field>
+            <field>
+              <name>RXFIFOEMPTY</name>
+              <msb>21</msb>
+              <lsb>21</lsb>
+              <access>read-only</access>
+              <description>UART1 SR RXFIFOEMPTY Bit: RXFIFO empty</description>
+            </field>
+            <field>
+              <name>RXFIFOCNT</name>
+              <msb>20</msb>
+              <lsb>16</lsb>
+              <access>read-only</access>
+              <description>UART1 SR RXFIFOCNT [4:0] Bits: RXFIFO character count</description>
+            </field>
+            <field>
+              <name>TXFIFOEMPTY</name>
+              <msb>5</msb>
+              <lsb>5</lsb>
+              <access>read-only</access>
+              <description>UART1 SR TXFIFOEMPTY Bit: TXFIFO empty</description>
+            </field>
+            <field>
+              <name>TXFIFOCNT</name>
+              <msb>4</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>UART1 SR TXFIFOCNT [4:0] Bits: TXFIFO character count</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TDR</name>
+          <addressOffset>0x000000C0</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>UART1 TX Data Register</description>
+          <fields>
+            <field>
+              <name>AF</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>write-only</access>
+              <description>UART1 TDR AF Bit: Transmit address frame (MATCHMODE=01/10)</description>
+            </field>
+            <field>
+              <name>BRK</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>write-only</access>
+              <description>UART1 TDR BRK Bit: LIN break field (fixed 13-bit low)</description>
+            </field>
+            <field>
+              <name>DATA</name>
+              <msb>7</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>UART1 TDR DATA [7:0] Bits: Data</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RDR</name>
+          <addressOffset>0x000000C4</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>UART1 RX Data Register</description>
+          <fields>
+            <field>
+              <name>AF</name>
+              <msb>13</msb>
+              <lsb>13</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR AF Bit: Address frame flag (MATCHMODE=01/10)</description>
+            </field>
+            <field>
+              <name>NOISE</name>
+              <msb>12</msb>
+              <lsb>12</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR NOISE Bit: Noise in current character</description>
+            </field>
+            <field>
+              <name>PE</name>
+              <msb>11</msb>
+              <lsb>11</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR PE Bit: Parity error in current character</description>
+            </field>
+            <field>
+              <name>FE</name>
+              <msb>10</msb>
+              <lsb>10</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR FE Bit: Frame error in current character</description>
+            </field>
+            <field>
+              <name>RXEMPTY</name>
+              <msb>9</msb>
+              <lsb>9</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR RXEMPTY Bit: First character after RXFIFO empty</description>
+            </field>
+            <field>
+              <name>IDLE</name>
+              <msb>8</msb>
+              <lsb>8</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR IDLE Bit: First character after IDLE</description>
+            </field>
+            <field>
+              <name>DATA</name>
+              <msb>7</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>UART1 RDR DATA [7:0] Bits: Data</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MDR1</name>
+          <addressOffset>0x000000C8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Match Data Register 1</description>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <msb>7</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 MDR1 DATA [7:0] Bits: Address data for match 1</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MDR2</name>
+          <addressOffset>0x000000CC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Match Data Register 2</description>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <msb>23</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>UART1 MDR2 DATA [7:0] Bits: Address data for match 2</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IER</name>
+          <addressOffset>0x00000100</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>UART1 Interrupt Enable Register</description>
+          <fields>
+            <field>
+              <name>RXSE</name>
+              <msb>26</msb>
+              <lsb>26</lsb>
+              <access>read-write</access>
+              <description>UART1 IER RXSE Bit: Enable / Disable RX edge interrupt</description>
+            </field>
+            <field>
+              <name>MATCH2</name>
+              <msb>25</msb>
+              <lsb>25</lsb>
+              <access>read-write</access>
+              <description>UART1 IER MATCH2 Bit: Enable / Disable match 2 interrupt enable</description>
+            </field>
+            <field>
+              <name>MATCH1</name>
+              <msb>24</msb>
+              <lsb>24</lsb>
+              <access>read-write</access>
+              <description>UART1 IER MATCH1 Bit: Enable / Disable match 1 interrupt enable</description>
+            </field>
+            <field>
+              <name>NOISE</name>
+              <msb>23</msb>
+              <lsb>23</lsb>
+              <access>read-write</access>
+              <description>UART1 IER NOISE Bit: Enable / Disable noise interrupt enable</description>
+            </field>
+            <field>
+              <name>BRK</name>
+              <msb>22</msb>
+              <lsb>22</lsb>
+              <access>read-write</access>
+              <description>UART1 IER BRK Bit: Enable / Disable break interrupt enable</description>
+            </field>
+            <field>
+              <name>FE</name>
+              <msb>21</msb>
+              <lsb>21</lsb>
+              <access>read-write</access>
+              <description>UART1 IER FE Bit: Enable / Disable frame error interrupt enable</description>
+            </field>
+            <field>
+              <name>PE</name>
+              <msb>20</msb>
+              <lsb>20</lsb>
+              <access>read-write</access>
+              <description>UART1 IER PE Bit: Enable / Disable parity error interrupt enable</description>
+            </field>
+            <field>
+              <name>RXFIFOUD</name>
+              <msb>19</msb>
+              <lsb>19</lsb>
+              <access>read-write</access>
+              <description>UART1 IER RXFIFOUD Bit: Enable / Disable RXFIFO underflow interrupt</description>
+            </field>
+            <field>
+              <name>RXOV</name>
+              <msb>18</msb>
+              <lsb>18</lsb>
+              <access>read-write</access>
+              <description>UART1 IER RXOV Bit: Enable / Disable overrun interrupt</description>
+            </field>
+            <field>
+              <name>IDLE</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>read-write</access>
+              <description>UART1 IER IDLE Bit: Enable / Disable IDLE interrupt</description>
+            </field>
+            <field>
+              <name>RXRDY</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-write</access>
+              <description>UART1 IER RXRDY Bit: Enable / Disable RX interrupt</description>
+            </field>
+            <field>
+              <name>TXFIFOOV</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-write</access>
+              <description>UART1 IER TXFIFOOV Bit: Enable / Disable TXFIFO overflow interrupt</description>
+            </field>
+            <field>
+              <name>TXC</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-write</access>
+              <description>UART1 IER TXC Bit: Enable / Disable transmission complete interrupt</description>
+            </field>
+            <field>
+              <name>TXRDY</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>UART1 IER TXRDY Bit: Enable / Disable TX interrupt</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ISR</name>
+          <addressOffset>0x00000104</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <description>UART1 Interrupt Status Register</description>
+          <fields>
+            <field>
+              <name>RXSE</name>
+              <msb>26</msb>
+              <lsb>26</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR RXSE Bit: Detected falling edge on RXD (3-sample debounced; any edge, not only start edges)</description>
+            </field>
+            <field>
+              <name>MATCH2</name>
+              <msb>25</msb>
+              <lsb>25</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR MATCH2 Bit: Match success (match buffer 2)</description>
+            </field>
+            <field>
+              <name>MATCH1</name>
+              <msb>24</msb>
+              <lsb>24</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR MATCH1 Bit: Match success (match buffer 1)</description>
+            </field>
+            <field>
+              <name>NOISE</name>
+              <msb>23</msb>
+              <lsb>23</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR NOISE Bit: Noise</description>
+            </field>
+            <field>
+              <name>BRK</name>
+              <msb>22</msb>
+              <lsb>22</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR BRK Bit: Break</description>
+            </field>
+            <field>
+              <name>FE</name>
+              <msb>21</msb>
+              <lsb>21</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR FE Bit: Frame error</description>
+            </field>
+            <field>
+              <name>PE</name>
+              <msb>20</msb>
+              <lsb>20</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR PE Bit: Parity error</description>
+            </field>
+            <field>
+              <name>RXFIFOUD</name>
+              <msb>19</msb>
+              <lsb>19</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR RXFIFOUD Bit: RXFIFO underflow</description>
+            </field>
+            <field>
+              <name>RXOV</name>
+              <msb>18</msb>
+              <lsb>18</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR RXOV Bit: RX buffer overflow / RXFIFO overflow</description>
+            </field>
+            <field>
+              <name>IDLE</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR IDLE Bit: IDLE</description>
+            </field>
+            <field>
+              <name>RXRDY</name>
+              <msb>16</msb>
+              <lsb>16</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR RXRDY Bit: RX buffer empty / RXFIFO under waterline</description>
+            </field>
+            <field>
+              <name>TXFIFOOV</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR TXFIFOOV Bit: TXFIFO overflow</description>
+            </field>
+            <field>
+              <name>TXC</name>
+              <msb>1</msb>
+              <lsb>1</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR TXC Bit: Transmission complete</description>
+            </field>
+            <field>
+              <name>TXRDY</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>UART1 ISR TXRDY Bit: TX buffer full or TXFIFO over-waterline</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ICR</name>
+          <addressOffset>0x00000108</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <description>UART1 Interrupt Clear Register</description>
+          <fields>
+            <field>
+              <name>RXSE</name>
+              <msb>26</msb>
+              <lsb>26</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR RXSE Bit: Clear ISR.RXSE</description>
+            </field>
+            <field>
+              <name>MATCH2</name>
+              <msb>25</msb>
+              <lsb>25</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR MATCH2 Bit: Clear ISR.MATCH2</description>
+            </field>
+            <field>
+              <name>MATCH1</name>
+              <msb>24</msb>
+              <lsb>24</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR MATCH1 Bit: Clear ISR.MATCH1</description>
+            </field>
+            <field>
+              <name>NOISE</name>
+              <msb>23</msb>
+              <lsb>23</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR NOISE Bit: Clear ISR.NOISE</description>
+            </field>
+            <field>
+              <name>BRK</name>
+              <msb>22</msb>
+              <lsb>22</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR BRK Bit: Clear ISR.BRK</description>
+            </field>
+            <field>
+              <name>FE</name>
+              <msb>21</msb>
+              <lsb>21</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR FE Bit: Clear ISR.FE</description>
+            </field>
+            <field>
+              <name>PE</name>
+              <msb>20</msb>
+              <lsb>20</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR PE Bit: Clear ISR.PE</description>
+            </field>
+            <field>
+              <name>RXFIFOUD</name>
+              <msb>19</msb>
+              <lsb>19</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR RXFIFOUD Bit: Clear ISR.RXFIFOUD</description>
+            </field>
+            <field>
+              <name>RXOV</name>
+              <msb>18</msb>
+              <lsb>18</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR RXOV Bit: Clear ISR.RXOV</description>
+            </field>
+            <field>
+              <name>IDLE</name>
+              <msb>17</msb>
+              <lsb>17</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR IDLE Bit: Clear ISR.IDLE</description>
+            </field>
+            <field>
+              <name>TXFIFOOV</name>
+              <msb>2</msb>
+              <lsb>2</lsb>
+              <access>write-only</access>
+              <description>UART1 ICR TXFIFOOV Bit: Clear ISR.TXFIFOOV</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+      <interrupt>
+        <name>UART1_RX</name>
+        <value>10</value>
+        <description>UART1 UART1 RX Interrupt</description>
+      </interrupt>
+      <interrupt>
+        <name>UART1_TX</name>
+        <value>11</value>
+        <description>UART1 UART1 TX Interrupt</description>
+      </interrupt>
+    </peripheral>
+    <peripheral derivedFrom="UART1">
+      <name>UART2</name>
+      <baseAddress>0x40000400</baseAddress>
+      <description>Universal Synchronous Receiver Transmitter 2</description>
+      <interrupt>
+        <name>UART2_RX</name>
+        <value>12</value>
+        <description>UART2 UART2 RX Interrupt</description>
+      </interrupt>
+      <interrupt>
+        <name>UART2_TX</name>
+        <value>13</value>
+        <description>UART2 UART2 TX Interrupt</description>
+      </interrupt>
+    </peripheral>
+    <peripheral>
+      <name>WWDG</name>
+      <baseAddress>0x40000C00</baseAddress>
+      <description>Window Watchdog</description>
+      <groupName>WWDG</groupName>
+      <headerStructName>WWDG</headerStructName>
+      <size>0x000003FF</size>
+      <addressBlock>
+        <usage>registers</usage>
+        <offset>0x0</offset>
+        <size>0x000003FF</size>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>CR1</name>
+          <addressOffset>0x00000000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>WWDG Control Register 1</description>
+          <fields>
+            <field>
+              <name>ACT</name>
+              <msb>7</msb>
+              <lsb>7</lsb>
+              <access>read-write</access>
+              <description>WWDG CR1 ACT Bit: Activate WWDG</description>
+            </field>
+            <field>
+              <name>CNT</name>
+              <msb>6</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>WWDG CR1 CNT [6:0] Bits: Counter value</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CR2</name>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>WWDG Control Register 2</description>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <msb>13</msb>
+              <lsb>11</lsb>
+              <access>read-write</access>
+              <description>WWDG CR2 DIV [2:0] Bits: Select divider 1</description>
+            </field>
+            <field>
+              <name>WINH</name>
+              <msb>6</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>WWDG CR2 WINH [6:0] Bits: Window high threshold</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IER</name>
+          <addressOffset>0x00000100</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>WWDG Interrupt Enable Register</description>
+          <fields>
+            <field>
+              <name>EW</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-write</access>
+              <description>WWDG IER EW Bit: Enable / Disable early wakeup interrupt</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ISR</name>
+          <addressOffset>0x00000104</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>WWDG Interrupt Status Register</description>
+          <fields>
+            <field>
+              <name>EW</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>read-only</access>
+              <description>WWDG ISR EW Bit: Early wakeup</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>ICR</name>
+          <addressOffset>0x00000108</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <description>WWDG Interrupt Clear Register</description>
+          <fields>
+            <field>
+              <name>EW</name>
+              <msb>0</msb>
+              <lsb>0</lsb>
+              <access>write-only</access>
+              <description>WWDG ICR EW Bit: Clear ISR.EW</description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+      <interrupt>
+        <name>WWDG</name>
+        <value>0</value>
+        <description>WWDG WWDG Interrupt</description>
+      </interrupt>
+    </peripheral>
+  </peripherals>
+</device>
