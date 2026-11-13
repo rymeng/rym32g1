@@ -7,6 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $releaseDir = $PSScriptRoot
+$tempDir = Join-Path $releaseDir '.temp'
 $binDir = 'bin'
 $generator = Join-Path $binDir 'cmsis-svd-generator.exe'
 $svdconv = Join-Path $binDir 'svdconv.exe'
@@ -25,8 +26,8 @@ $errorSuffix = '_error'
 $descriptionDir = '..\..\validation\description'
 $headerTargetDirs = @(
     '..\..\validation\lib\cmsis\device\include',
-    '..\flm-generator\lib\cmsis\device\include',
-    '..\ewarm-flashloader-generator\lib\cmsis\device\include'
+    '..\flashloader-generator\flm-generator\lib\cmsis\device\include',
+    '..\flashloader-generator\ewarm-flashloader-generator\lib\cmsis\device\include'
 )
 
 function Write-Step($message) {
@@ -250,7 +251,16 @@ function Remove-SourcePathFromHeader {
 }
 
 Push-Location $releaseDir
+$originalTemp = $env:TEMP
+$originalTmp = $env:TMP
 try {
+    # cmsis-svd-generator.exe is a one-file PyInstaller build: it unpacks itself
+    # into %TEMP% before it can run and fails when that directory is not usable.
+    # Keep its scratch area inside the project instead.
+    New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+    $env:TEMP = $tempDir
+    $env:TMP = $tempDir
+
     Write-Step 'Checking tools and input'
 
     foreach ($tool in @($generator, $svdconv, $sfrcc)) {
@@ -269,6 +279,7 @@ try {
         throw "Excel folder not found: $wanted"
     }
     Write-Host "    Excel: $((Resolve-Path -LiteralPath $ExcelDir).Path)"
+    Write-Host "    TEMP:  $tempDir"
 
     foreach ($dir in @($svdDir, $sfdDir, $sfrDir, $headerDir, $logDir)) {
         if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
@@ -427,5 +438,8 @@ try {
     Write-Host ''
     Write-Host 'All done.' -ForegroundColor Green
 } finally {
+    if ($null -ne $originalTemp) { $env:TEMP = $originalTemp } else { Remove-Item Env:TEMP -ErrorAction SilentlyContinue }
+    if ($null -ne $originalTmp) { $env:TMP = $originalTmp } else { Remove-Item Env:TMP -ErrorAction SilentlyContinue }
+    if (Test-Path -LiteralPath $tempDir) { Remove-Item -LiteralPath $tempDir -Recurse -Force -ErrorAction SilentlyContinue }
     Pop-Location
 }
