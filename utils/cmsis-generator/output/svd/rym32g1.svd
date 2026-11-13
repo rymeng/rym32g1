@@ -110,7 +110,7 @@
           </fields>
         </register>
         <register>
-          <name> CR2</name>
+          <name>CR2</name>
           <addressOffset>0x0000000C</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -121,7 +121,7 @@
               <msb>0</msb>
               <lsb>0</lsb>
               <access>read-write</access>
-              <description>FMC  CR2 START Bit: Start erasing</description>
+              <description>FMC CR2 START Bit: Start erasing</description>
             </field>
           </fields>
         </register>
@@ -410,11 +410,11 @@
               <description>GPIOA AFR1 PIN02 [3:0] Bits: Alternate function code for pin 2</description>
             </field>
             <field>
-              <name>PIN10</name>
+              <name>PIN01</name>
               <msb>7</msb>
               <lsb>4</lsb>
               <access>read-write</access>
-              <description>GPIOA AFR1 PIN10 [3:0] Bits: Alternate function code for pin 1</description>
+              <description>GPIOA AFR1 PIN01 [3:0] Bits: Alternate function code for pin 1</description>
             </field>
             <field>
               <name>PIN00</name>
@@ -495,7 +495,7 @@
           <addressOffset>0x0000000C</addressOffset>
           <size>32</size>
           <access>read-write</access>
-          <description>GPIOA Generate Purpose IO Mode Register</description>
+          <description>GPIOA General Purpose IO Mode Register</description>
           <fields>
             <field>
               <name>PIN15</name>
@@ -1346,7 +1346,7 @@
     </peripheral>
     <peripheral>
       <name>TUART1</name>
-      <baseAddress>0x40000800</baseAddress>
+      <baseAddress>0x40011800</baseAddress>
       <description>Test Universal Synchronous Receiver Transmitter 1</description>
       <groupName>TUART</groupName>
       <headerStructName>TUART</headerStructName>
@@ -1732,7 +1732,7 @@
     </peripheral>
     <peripheral>
       <name>UART1</name>
-      <baseAddress>0x40000000</baseAddress>
+      <baseAddress>0x40001000</baseAddress>
       <description>Universal Synchronous Receiver Transmitter 1</description>
       <groupName>UART</groupName>
       <headerStructName>UART</headerStructName>
@@ -2600,7 +2600,7 @@
     </peripheral>
     <peripheral derivedFrom="UART1">
       <name>UART2</name>
-      <baseAddress>0x40000400</baseAddress>
+      <baseAddress>0x40011400</baseAddress>
       <description>Universal Synchronous Receiver Transmitter 2</description>
       <interrupt>
         <name>UART2_RX</name>
@@ -2615,7 +2615,7 @@
     </peripheral>
     <peripheral>
       <name>WWDG</name>
-      <baseAddress>0x40000C00</baseAddress>
+      <baseAddress>0x40000000</baseAddress>
       <description>Window Watchdog</description>
       <groupName>WWDG</groupName>
       <headerStructName>WWDG</headerStructName>
@@ -2661,7 +2661,7 @@
               <msb>13</msb>
               <lsb>11</lsb>
               <access>read-write</access>
-              <description>WWDG CR2 DIV [2:0] Bits: Select divider 1</description>
+              <description>WWDG CR2 DIV [2:0] Bits: Select prescaler divider</description>
             </field>
             <field>
               <name>WINH</name>
@@ -2692,7 +2692,7 @@
           <name>ISR</name>
           <addressOffset>0x00000104</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>read-only</access>
           <description>WWDG Interrupt Status Register</description>
           <fields>
             <field>
@@ -2708,7 +2708,7 @@
           <name>ICR</name>
           <addressOffset>0x00000108</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <description>WWDG Interrupt Clear Register</description>
           <fields>
             <field>
