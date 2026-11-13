@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ProjectWorkspace xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_mpw.xsd">
+  <SchemaVersion>1.0</SchemaVersion>
+  <Header>### uVision Project, (C) Keil Software</Header>
+  <WorkspaceName>workspace_uvision</WorkspaceName>
+  <project>
+    <PathAndName>.\..\gpio\gpio_toggle\mdk\gpio_toggle.uvprojx</PathAndName>
+  </project>
+  <project>
+    <PathAndName>.\..\template\template\mdk\template.uvprojx</PathAndName>
+  </project>
+  <project>
+    <PathAndName>.\..\uart\uart_redirect_stdout\mdk\uart_redirect_stdout.uvprojx</PathAndName>
+  </project>
+</ProjectWorkspace>
