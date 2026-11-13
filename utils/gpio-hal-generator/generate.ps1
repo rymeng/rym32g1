@@ -16,8 +16,8 @@ $errorSuffix = '_error'
 
 $headerTargetDirs = @(
     '..\..\validation\lib\hal\include',
-    '..\ewarm-flashloader-generator\lib\hal\include',
-    '..\flm-generator\lib\hal\include'
+    '..\flashloader-generator\ewarm-flashloader-generator\lib\hal\include',
+    '..\flashloader-generator\flm-generator\lib\hal\include'
 )
 
 function Write-Step($message) {
