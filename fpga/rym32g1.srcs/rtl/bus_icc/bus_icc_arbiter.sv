@@ -13,11 +13,7 @@ module bus_icc_arbiter (
     output logic [1:0] granted_master_code_o,
     output logic       granted_master_null_o
 );
-    localparam int IBUS_CODE   = 2'b00;
-    localparam int DBUS_CODE   = 2'b01;
-    localparam int SBUS_CODE   = 2'b10;
-
-    localparam int HTRANS_BUSY = 2'b01;
+    import bus_icc_pkg::*;
 
     logic [1:0] granted_master_code;
     logic [1:0] granted_master_code_next;
@@ -28,13 +24,13 @@ module bus_icc_arbiter (
     logic xfer_busy_cm3_dbus;
     logic xfer_busy_cm3_sbus;
 
-    assign xfer_busy_cm3_ibus = hsel_granted_master_i && (granted_master_code == IBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
-    assign xfer_busy_cm3_dbus = hsel_granted_master_i && (granted_master_code == DBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
-    assign xfer_busy_cm3_sbus = hsel_granted_master_i && (granted_master_code == SBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
+    assign xfer_busy_cm3_ibus = hsel_granted_master_i && (granted_master_code == CM3_IBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
+    assign xfer_busy_cm3_dbus = hsel_granted_master_i && (granted_master_code == CM3_DBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
+    assign xfer_busy_cm3_sbus = hsel_granted_master_i && (granted_master_code == CM3_SBUS_CODE) && (htrans_granted_master_i == HTRANS_BUSY);
 
     always_ff @(posedge hclk_i or negedge hreset_n_i) begin
         if (!hreset_n_i) begin
-            granted_master_code <= IBUS_CODE;
+            granted_master_code <= CM3_IBUS_CODE;
             granted_master_null <= 1'b1;
         end else if (hready_slave_i) begin
             granted_master_code <= granted_master_code_next;
@@ -50,11 +46,11 @@ module bus_icc_arbiter (
             granted_master_code_next = granted_master_code;
         end else begin
             if (xfer_req_valid_cm3_ibus_i || xfer_busy_cm3_ibus) begin
-                granted_master_code_next = IBUS_CODE;
+                granted_master_code_next = CM3_IBUS_CODE;
             end else if (xfer_req_valid_cm3_dbus_i || xfer_busy_cm3_dbus) begin
-                granted_master_code_next = DBUS_CODE;
+                granted_master_code_next = CM3_DBUS_CODE;
             end else if (xfer_req_valid_cm3_sbus_i || xfer_busy_cm3_sbus) begin
-                granted_master_code_next = SBUS_CODE;
+                granted_master_code_next = CM3_SBUS_CODE;
             end else if (hsel_granted_master_i) begin
                 granted_master_code_next = granted_master_code;
             end else begin

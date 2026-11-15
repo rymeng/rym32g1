@@ -215,26 +215,79 @@ module bus_icc_core (
 
     /* Slave port ready signals */
     logic hready_rcc;
-    logic [1:0]  hresp_rcc;
-    logic [31:0] hrdata_rcc;
     logic hready_flash;
-    logic [1:0]  hresp_flash;
-    logic [31:0] hrdata_flash;
     logic hready_sram;
-    logic [1:0]  hresp_sram;
-    logic [31:0] hrdata_sram;
     logic hready_gpioa;
-    logic [1:0]  hresp_gpioa;
-    logic [31:0] hrdata_gpioa;
     logic hready_gpiob;
-    logic [1:0]  hresp_gpiob;
-    logic [31:0] hrdata_gpiob;
     logic hready_fmc;
-    logic [1:0]  hresp_fmc;
-    logic [31:0] hrdata_fmc;
     logic hready_apb1_br;
-    logic [1:0]  hresp_apb1_br;
-    logic [31:0] hrdata_apb1_br;
+
+    /* Slave response to master decoders */
+    logic        rcc_hreadyout_master_cm3_ibus;
+    logic [1:0]  rcc_hresp_master_cm3_ibus;
+    logic [31:0] rcc_hrdata_master_cm3_ibus;
+    logic        flash_hreadyout_master_cm3_ibus;
+    logic [1:0]  flash_hresp_master_cm3_ibus;
+    logic [31:0] flash_hrdata_master_cm3_ibus;
+    logic        sram_hreadyout_master_cm3_ibus;
+    logic [1:0]  sram_hresp_master_cm3_ibus;
+    logic [31:0] sram_hrdata_master_cm3_ibus;
+    logic        gpioa_hreadyout_master_cm3_ibus;
+    logic [1:0]  gpioa_hresp_master_cm3_ibus;
+    logic [31:0] gpioa_hrdata_master_cm3_ibus;
+    logic        gpiob_hreadyout_master_cm3_ibus;
+    logic [1:0]  gpiob_hresp_master_cm3_ibus;
+    logic [31:0] gpiob_hrdata_master_cm3_ibus;
+    logic        fmc_hreadyout_master_cm3_ibus;
+    logic [1:0]  fmc_hresp_master_cm3_ibus;
+    logic [31:0] fmc_hrdata_master_cm3_ibus;
+    logic        apb1_br_hreadyout_master_cm3_ibus;
+    logic [1:0]  apb1_br_hresp_master_cm3_ibus;
+    logic [31:0] apb1_br_hrdata_master_cm3_ibus;
+
+    logic        rcc_hreadyout_master_cm3_dbus;
+    logic [1:0]  rcc_hresp_master_cm3_dbus;
+    logic [31:0] rcc_hrdata_master_cm3_dbus;
+    logic        flash_hreadyout_master_cm3_dbus;
+    logic [1:0]  flash_hresp_master_cm3_dbus;
+    logic [31:0] flash_hrdata_master_cm3_dbus;
+    logic        sram_hreadyout_master_cm3_dbus;
+    logic [1:0]  sram_hresp_master_cm3_dbus;
+    logic [31:0] sram_hrdata_master_cm3_dbus;
+    logic        gpioa_hreadyout_master_cm3_dbus;
+    logic [1:0]  gpioa_hresp_master_cm3_dbus;
+    logic [31:0] gpioa_hrdata_master_cm3_dbus;
+    logic        gpiob_hreadyout_master_cm3_dbus;
+    logic [1:0]  gpiob_hresp_master_cm3_dbus;
+    logic [31:0] gpiob_hrdata_master_cm3_dbus;
+    logic        fmc_hreadyout_master_cm3_dbus;
+    logic [1:0]  fmc_hresp_master_cm3_dbus;
+    logic [31:0] fmc_hrdata_master_cm3_dbus;
+    logic        apb1_br_hreadyout_master_cm3_dbus;
+    logic [1:0]  apb1_br_hresp_master_cm3_dbus;
+    logic [31:0] apb1_br_hrdata_master_cm3_dbus;
+
+    logic        rcc_hreadyout_master_cm3_sbus;
+    logic [1:0]  rcc_hresp_master_cm3_sbus;
+    logic [31:0] rcc_hrdata_master_cm3_sbus;
+    logic        flash_hreadyout_master_cm3_sbus;
+    logic [1:0]  flash_hresp_master_cm3_sbus;
+    logic [31:0] flash_hrdata_master_cm3_sbus;
+    logic        sram_hreadyout_master_cm3_sbus;
+    logic [1:0]  sram_hresp_master_cm3_sbus;
+    logic [31:0] sram_hrdata_master_cm3_sbus;
+    logic        gpioa_hreadyout_master_cm3_sbus;
+    logic [1:0]  gpioa_hresp_master_cm3_sbus;
+    logic [31:0] gpioa_hrdata_master_cm3_sbus;
+    logic        gpiob_hreadyout_master_cm3_sbus;
+    logic [1:0]  gpiob_hresp_master_cm3_sbus;
+    logic [31:0] gpiob_hrdata_master_cm3_sbus;
+    logic        fmc_hreadyout_master_cm3_sbus;
+    logic [1:0]  fmc_hresp_master_cm3_sbus;
+    logic [31:0] fmc_hrdata_master_cm3_sbus;
+    logic        apb1_br_hreadyout_master_cm3_sbus;
+    logic [1:0]  apb1_br_hresp_master_cm3_sbus;
+    logic [31:0] apb1_br_hrdata_master_cm3_sbus;
 
     /* Cortex-M3 IBUS to slave signals */
     logic rcc_hsel_master_cm3_ibus;
@@ -399,39 +452,39 @@ module bus_icc_core (
         .hresp_master_stage_o        (master_stage_hresp_master_cm3_ibus),
         .hrdata_master_stage_o       (hrdata_master_cm3_ibus_o),
         .hsel_rcc_o                  (rcc_hsel_master_cm3_ibus),
-        .hreadyout_rcc_i             (hready_rcc),
-        .hresp_rcc_i                 (hresp_rcc),
-        .hrdata_rcc_i                (hrdata_rcc),
+        .hreadyout_rcc_i             (rcc_hreadyout_master_cm3_ibus),
+        .hresp_rcc_i                 (rcc_hresp_master_cm3_ibus),
+        .hrdata_rcc_i                (rcc_hrdata_master_cm3_ibus),
         .rcc_xfer_granted_i          (rcc_xfer_granted_master_cm3_ibus),
         .hsel_flash_o                (flash_hsel_master_cm3_ibus),
-        .hreadyout_flash_i           (hready_flash),
-        .hresp_flash_i               (hresp_flash),
-        .hrdata_flash_i              (hrdata_flash),
+        .hreadyout_flash_i           (flash_hreadyout_master_cm3_ibus),
+        .hresp_flash_i               (flash_hresp_master_cm3_ibus),
+        .hrdata_flash_i              (flash_hrdata_master_cm3_ibus),
         .flash_xfer_granted_i        (flash_xfer_granted_master_cm3_ibus),
         .hsel_sram_o                 (sram_hsel_master_cm3_ibus),
-        .hreadyout_sram_i            (hready_sram),
-        .hresp_sram_i                (hresp_sram),
-        .hrdata_sram_i               (hrdata_sram),
+        .hreadyout_sram_i            (sram_hreadyout_master_cm3_ibus),
+        .hresp_sram_i                (sram_hresp_master_cm3_ibus),
+        .hrdata_sram_i               (sram_hrdata_master_cm3_ibus),
         .sram_xfer_granted_i         (sram_xfer_granted_master_cm3_ibus),
         .hsel_gpioa_o                (gpioa_hsel_master_cm3_ibus),
-        .hreadyout_gpioa_i           (hready_gpioa),
-        .hresp_gpioa_i               (hresp_gpioa),
-        .hrdata_gpioa_i              (hrdata_gpioa),
+        .hreadyout_gpioa_i           (gpioa_hreadyout_master_cm3_ibus),
+        .hresp_gpioa_i               (gpioa_hresp_master_cm3_ibus),
+        .hrdata_gpioa_i              (gpioa_hrdata_master_cm3_ibus),
         .gpioa_xfer_granted_i        (gpioa_xfer_granted_master_cm3_ibus),
         .hsel_gpiob_o                (gpiob_hsel_master_cm3_ibus),
-        .hreadyout_gpiob_i           (hready_gpiob),
-        .hresp_gpiob_i               (hresp_gpiob),
-        .hrdata_gpiob_i              (hrdata_gpiob),
+        .hreadyout_gpiob_i           (gpiob_hreadyout_master_cm3_ibus),
+        .hresp_gpiob_i               (gpiob_hresp_master_cm3_ibus),
+        .hrdata_gpiob_i              (gpiob_hrdata_master_cm3_ibus),
         .gpiob_xfer_granted_i        (gpiob_xfer_granted_master_cm3_ibus),
         .hsel_fmc_o                  (fmc_hsel_master_cm3_ibus),
-        .hreadyout_fmc_i             (hready_fmc),
-        .hresp_fmc_i                 (hresp_fmc),
-        .hrdata_fmc_i                (hrdata_fmc),
+        .hreadyout_fmc_i             (fmc_hreadyout_master_cm3_ibus),
+        .hresp_fmc_i                 (fmc_hresp_master_cm3_ibus),
+        .hrdata_fmc_i                (fmc_hrdata_master_cm3_ibus),
         .fmc_xfer_granted_i          (fmc_xfer_granted_master_cm3_ibus),
         .hsel_apb1_br_o              (apb1_br_hsel_master_cm3_ibus),
-        .hreadyout_apb1_br_i         (hready_apb1_br),
-        .hresp_apb1_br_i             (hresp_apb1_br),
-        .hrdata_apb1_br_i            (hrdata_apb1_br),
+        .hreadyout_apb1_br_i         (apb1_br_hreadyout_master_cm3_ibus),
+        .hresp_apb1_br_i             (apb1_br_hresp_master_cm3_ibus),
+        .hrdata_apb1_br_i            (apb1_br_hrdata_master_cm3_ibus),
         .apb1_br_xfer_granted_i      (apb1_br_xfer_granted_master_cm3_ibus)
     );
 
@@ -448,39 +501,39 @@ module bus_icc_core (
         .hresp_master_stage_o        (master_stage_hresp_master_cm3_dbus),
         .hrdata_master_stage_o       (hrdata_master_cm3_dbus_o),
         .hsel_rcc_o                  (rcc_hsel_master_cm3_dbus),
-        .hreadyout_rcc_i             (hready_rcc),
-        .hresp_rcc_i                 (hresp_rcc),
-        .hrdata_rcc_i                (hrdata_rcc),
+        .hreadyout_rcc_i             (rcc_hreadyout_master_cm3_dbus),
+        .hresp_rcc_i                 (rcc_hresp_master_cm3_dbus),
+        .hrdata_rcc_i                (rcc_hrdata_master_cm3_dbus),
         .rcc_xfer_granted_i          (rcc_xfer_granted_master_cm3_dbus),
         .hsel_flash_o                (flash_hsel_master_cm3_dbus),
-        .hreadyout_flash_i           (hready_flash),
-        .hresp_flash_i               (hresp_flash),
-        .hrdata_flash_i              (hrdata_flash),
+        .hreadyout_flash_i           (flash_hreadyout_master_cm3_dbus),
+        .hresp_flash_i               (flash_hresp_master_cm3_dbus),
+        .hrdata_flash_i              (flash_hrdata_master_cm3_dbus),
         .flash_xfer_granted_i        (flash_xfer_granted_master_cm3_dbus),
         .hsel_sram_o                 (sram_hsel_master_cm3_dbus),
-        .hreadyout_sram_i            (hready_sram),
-        .hresp_sram_i                (hresp_sram),
-        .hrdata_sram_i               (hrdata_sram),
+        .hreadyout_sram_i            (sram_hreadyout_master_cm3_dbus),
+        .hresp_sram_i                (sram_hresp_master_cm3_dbus),
+        .hrdata_sram_i               (sram_hrdata_master_cm3_dbus),
         .sram_xfer_granted_i         (sram_xfer_granted_master_cm3_dbus),
         .hsel_gpioa_o                (gpioa_hsel_master_cm3_dbus),
-        .hreadyout_gpioa_i           (hready_gpioa),
-        .hresp_gpioa_i               (hresp_gpioa),
-        .hrdata_gpioa_i              (hrdata_gpioa),
+        .hreadyout_gpioa_i           (gpioa_hreadyout_master_cm3_dbus),
+        .hresp_gpioa_i               (gpioa_hresp_master_cm3_dbus),
+        .hrdata_gpioa_i              (gpioa_hrdata_master_cm3_dbus),
         .gpioa_xfer_granted_i        (gpioa_xfer_granted_master_cm3_dbus),
         .hsel_gpiob_o                (gpiob_hsel_master_cm3_dbus),
-        .hreadyout_gpiob_i           (hready_gpiob),
-        .hresp_gpiob_i               (hresp_gpiob),
-        .hrdata_gpiob_i              (hrdata_gpiob),
+        .hreadyout_gpiob_i           (gpiob_hreadyout_master_cm3_dbus),
+        .hresp_gpiob_i               (gpiob_hresp_master_cm3_dbus),
+        .hrdata_gpiob_i              (gpiob_hrdata_master_cm3_dbus),
         .gpiob_xfer_granted_i        (gpiob_xfer_granted_master_cm3_dbus),
         .hsel_fmc_o                  (fmc_hsel_master_cm3_dbus),
-        .hreadyout_fmc_i             (hready_fmc),
-        .hresp_fmc_i                 (hresp_fmc),
-        .hrdata_fmc_i                (hrdata_fmc),
+        .hreadyout_fmc_i             (fmc_hreadyout_master_cm3_dbus),
+        .hresp_fmc_i                 (fmc_hresp_master_cm3_dbus),
+        .hrdata_fmc_i                (fmc_hrdata_master_cm3_dbus),
         .fmc_xfer_granted_i          (fmc_xfer_granted_master_cm3_dbus),
         .hsel_apb1_br_o              (apb1_br_hsel_master_cm3_dbus),
-        .hreadyout_apb1_br_i         (hready_apb1_br),
-        .hresp_apb1_br_i             (hresp_apb1_br),
-        .hrdata_apb1_br_i            (hrdata_apb1_br),
+        .hreadyout_apb1_br_i         (apb1_br_hreadyout_master_cm3_dbus),
+        .hresp_apb1_br_i             (apb1_br_hresp_master_cm3_dbus),
+        .hrdata_apb1_br_i            (apb1_br_hrdata_master_cm3_dbus),
         .apb1_br_xfer_granted_i      (apb1_br_xfer_granted_master_cm3_dbus)
     );
 
@@ -497,39 +550,39 @@ module bus_icc_core (
         .hresp_master_stage_o        (master_stage_hresp_master_cm3_sbus),
         .hrdata_master_stage_o       (hrdata_master_cm3_sbus_o),
         .hsel_rcc_o                  (rcc_hsel_master_cm3_sbus),
-        .hreadyout_rcc_i             (hready_rcc),
-        .hresp_rcc_i                 (hresp_rcc),
-        .hrdata_rcc_i                (hrdata_rcc),
+        .hreadyout_rcc_i             (rcc_hreadyout_master_cm3_sbus),
+        .hresp_rcc_i                 (rcc_hresp_master_cm3_sbus),
+        .hrdata_rcc_i                (rcc_hrdata_master_cm3_sbus),
         .rcc_xfer_granted_i          (rcc_xfer_granted_master_cm3_sbus),
         .hsel_flash_o                (flash_hsel_master_cm3_sbus),
-        .hreadyout_flash_i           (hready_flash),
-        .hresp_flash_i               (hresp_flash),
-        .hrdata_flash_i              (hrdata_flash),
+        .hreadyout_flash_i           (flash_hreadyout_master_cm3_sbus),
+        .hresp_flash_i               (flash_hresp_master_cm3_sbus),
+        .hrdata_flash_i              (flash_hrdata_master_cm3_sbus),
         .flash_xfer_granted_i        (flash_xfer_granted_master_cm3_sbus),
         .hsel_sram_o                 (sram_hsel_master_cm3_sbus),
-        .hreadyout_sram_i            (hready_sram),
-        .hresp_sram_i                (hresp_sram),
-        .hrdata_sram_i               (hrdata_sram),
+        .hreadyout_sram_i            (sram_hreadyout_master_cm3_sbus),
+        .hresp_sram_i                (sram_hresp_master_cm3_sbus),
+        .hrdata_sram_i               (sram_hrdata_master_cm3_sbus),
         .sram_xfer_granted_i         (sram_xfer_granted_master_cm3_sbus),
         .hsel_gpioa_o                (gpioa_hsel_master_cm3_sbus),
-        .hreadyout_gpioa_i           (hready_gpioa),
-        .hresp_gpioa_i               (hresp_gpioa),
-        .hrdata_gpioa_i              (hrdata_gpioa),
+        .hreadyout_gpioa_i           (gpioa_hreadyout_master_cm3_sbus),
+        .hresp_gpioa_i               (gpioa_hresp_master_cm3_sbus),
+        .hrdata_gpioa_i              (gpioa_hrdata_master_cm3_sbus),
         .gpioa_xfer_granted_i        (gpioa_xfer_granted_master_cm3_sbus),
         .hsel_gpiob_o                (gpiob_hsel_master_cm3_sbus),
-        .hreadyout_gpiob_i           (hready_gpiob),
-        .hresp_gpiob_i               (hresp_gpiob),
-        .hrdata_gpiob_i              (hrdata_gpiob),
+        .hreadyout_gpiob_i           (gpiob_hreadyout_master_cm3_sbus),
+        .hresp_gpiob_i               (gpiob_hresp_master_cm3_sbus),
+        .hrdata_gpiob_i              (gpiob_hrdata_master_cm3_sbus),
         .gpiob_xfer_granted_i        (gpiob_xfer_granted_master_cm3_sbus),
         .hsel_fmc_o                  (fmc_hsel_master_cm3_sbus),
-        .hreadyout_fmc_i             (hready_fmc),
-        .hresp_fmc_i                 (hresp_fmc),
-        .hrdata_fmc_i                (hrdata_fmc),
+        .hreadyout_fmc_i             (fmc_hreadyout_master_cm3_sbus),
+        .hresp_fmc_i                 (fmc_hresp_master_cm3_sbus),
+        .hrdata_fmc_i                (fmc_hrdata_master_cm3_sbus),
         .fmc_xfer_granted_i          (fmc_xfer_granted_master_cm3_sbus),
         .hsel_apb1_br_o              (apb1_br_hsel_master_cm3_sbus),
-        .hreadyout_apb1_br_i         (hready_apb1_br),
-        .hresp_apb1_br_i             (hresp_apb1_br),
-        .hrdata_apb1_br_i            (hrdata_apb1_br),
+        .hreadyout_apb1_br_i         (apb1_br_hreadyout_master_cm3_sbus),
+        .hresp_apb1_br_i             (apb1_br_hresp_master_cm3_sbus),
+        .hrdata_apb1_br_i            (apb1_br_hrdata_master_cm3_sbus),
         .apb1_br_xfer_granted_i      (apb1_br_xfer_granted_master_cm3_sbus)
     );
 
@@ -573,9 +626,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (rcc_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_rcc_i),
-        .hresp_slave_i                   (hresp_rcc_i),
-        .hrdata_slave_i                  (hrdata_rcc_i),
         .hsel_slave_o                    (hsel_rcc_o),
         .haddr_slave_o                   (haddr_rcc_o),
         .hwrite_slave_o                  (hwrite_rcc_o),
@@ -587,8 +637,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_rcc_o),
         .hready_slave_o                  (hready_rcc),
         .hwdata_slave_o                  (hwdata_rcc_o),
-        .hresp_decoder_o                 (hresp_rcc),
-        .hrdata_decoder_o                (hrdata_rcc)
+        .hreadyout_slave_i               (hreadyout_rcc_i),
+        .hresp_slave_i                   (hresp_rcc_i),
+        .hrdata_slave_i                  (hrdata_rcc_i),
+        .hreadyout_cm3_ibus_decoder_o    (rcc_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (rcc_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (rcc_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (rcc_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (rcc_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (rcc_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (rcc_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (rcc_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (rcc_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of Flash */
@@ -631,9 +691,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (flash_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_flash_i),
-        .hresp_slave_i                   (hresp_flash_i),
-        .hrdata_slave_i                  (hrdata_flash_i),
         .hsel_slave_o                    (hsel_flash_o),
         .haddr_slave_o                   (haddr_flash_o),
         .hwrite_slave_o                  (hwrite_flash_o),
@@ -645,8 +702,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_flash_o),
         .hready_slave_o                  (hready_flash),
         .hwdata_slave_o                  (hwdata_flash_o),
-        .hresp_decoder_o                 (hresp_flash),
-        .hrdata_decoder_o                (hrdata_flash)
+        .hreadyout_slave_i               (hreadyout_flash_i),
+        .hresp_slave_i                   (hresp_flash_i),
+        .hrdata_slave_i                  (hrdata_flash_i),
+        .hreadyout_cm3_ibus_decoder_o    (flash_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (flash_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (flash_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (flash_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (flash_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (flash_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (flash_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (flash_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (flash_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of SRAM */
@@ -689,9 +756,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (sram_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_sram_i),
-        .hresp_slave_i                   (hresp_sram_i),
-        .hrdata_slave_i                  (hrdata_sram_i),
         .hsel_slave_o                    (hsel_sram_o),
         .haddr_slave_o                   (haddr_sram_o),
         .hwrite_slave_o                  (hwrite_sram_o),
@@ -703,8 +767,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_sram_o),
         .hready_slave_o                  (hready_sram),
         .hwdata_slave_o                  (hwdata_sram_o),
-        .hresp_decoder_o                 (hresp_sram),
-        .hrdata_decoder_o                (hrdata_sram)
+        .hreadyout_slave_i               (hreadyout_sram_i),
+        .hresp_slave_i                   (hresp_sram_i),
+        .hrdata_slave_i                  (hrdata_sram_i),
+        .hreadyout_cm3_ibus_decoder_o    (sram_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (sram_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (sram_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (sram_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (sram_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (sram_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (sram_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (sram_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (sram_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of GPIO A */
@@ -747,9 +821,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (gpioa_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_gpioa_i),
-        .hresp_slave_i                   (hresp_gpioa_i),
-        .hrdata_slave_i                  (hrdata_gpioa_i),
         .hsel_slave_o                    (hsel_gpioa_o),
         .haddr_slave_o                   (haddr_gpioa_o),
         .hwrite_slave_o                  (hwrite_gpioa_o),
@@ -761,8 +832,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_gpioa_o),
         .hready_slave_o                  (hready_gpioa),
         .hwdata_slave_o                  (hwdata_gpioa_o),
-        .hresp_decoder_o                 (hresp_gpioa),
-        .hrdata_decoder_o                (hrdata_gpioa)
+        .hreadyout_slave_i               (hreadyout_gpioa_i),
+        .hresp_slave_i                   (hresp_gpioa_i),
+        .hrdata_slave_i                  (hrdata_gpioa_i),
+        .hreadyout_cm3_ibus_decoder_o    (gpioa_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (gpioa_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (gpioa_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (gpioa_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (gpioa_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (gpioa_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (gpioa_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (gpioa_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (gpioa_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of GPIO B */
@@ -805,9 +886,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (gpiob_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_gpiob_i),
-        .hresp_slave_i                   (hresp_gpiob_i),
-        .hrdata_slave_i                  (hrdata_gpiob_i),
         .hsel_slave_o                    (hsel_gpiob_o),
         .haddr_slave_o                   (haddr_gpiob_o),
         .hwrite_slave_o                  (hwrite_gpiob_o),
@@ -819,8 +897,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_gpiob_o),
         .hready_slave_o                  (hready_gpiob),
         .hwdata_slave_o                  (hwdata_gpiob_o),
-        .hresp_decoder_o                 (hresp_gpiob),
-        .hrdata_decoder_o                (hrdata_gpiob)
+        .hreadyout_slave_i               (hreadyout_gpiob_i),
+        .hresp_slave_i                   (hresp_gpiob_i),
+        .hrdata_slave_i                  (hrdata_gpiob_i),
+        .hreadyout_cm3_ibus_decoder_o    (gpiob_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (gpiob_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (gpiob_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (gpiob_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (gpiob_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (gpiob_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (gpiob_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (gpiob_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (gpiob_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of FMC */
@@ -863,9 +951,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (fmc_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_fmc_i),
-        .hresp_slave_i                   (hresp_fmc_i),
-        .hrdata_slave_i                  (hrdata_fmc_i),
         .hsel_slave_o                    (hsel_fmc_o),
         .haddr_slave_o                   (haddr_fmc_o),
         .hwrite_slave_o                  (hwrite_fmc_o),
@@ -877,8 +962,18 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_fmc_o),
         .hready_slave_o                  (hready_fmc),
         .hwdata_slave_o                  (hwdata_fmc_o),
-        .hresp_decoder_o                 (hresp_fmc),
-        .hrdata_decoder_o                (hrdata_fmc)
+        .hreadyout_slave_i               (hreadyout_fmc_i),
+        .hresp_slave_i                   (hresp_fmc_i),
+        .hrdata_slave_i                  (hrdata_fmc_i),
+        .hreadyout_cm3_ibus_decoder_o    (fmc_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (fmc_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (fmc_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (fmc_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (fmc_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (fmc_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (fmc_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (fmc_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (fmc_hrdata_master_cm3_sbus)
     );
 
     /* Slave stage of AHB to APB bridge */
@@ -921,9 +1016,6 @@ module bus_icc_core (
         .hwdata_cm3_sbus_stage_i         (hwdata_master_cm3_sbus_i),
         .xfer_req_cm3_sbus_stage_i       (xfer_req_master_cm3_sbus),
         .xfer_granted_cm3_sbus_decoder_o (apb1_br_xfer_granted_master_cm3_sbus),
-        .hreadyout_slave_i               (hreadyout_apb1_br_i),
-        .hresp_slave_i                   (hresp_apb1_br_i),
-        .hrdata_slave_i                  (hrdata_apb1_br_i),
         .hsel_slave_o                    (hsel_apb1_br_o),
         .haddr_slave_o                   (haddr_apb1_br_o),
         .hwrite_slave_o                  (hwrite_apb1_br_o),
@@ -935,11 +1027,20 @@ module bus_icc_core (
         .hmastlock_slave_o               (hmastlock_apb1_br_o),
         .hready_slave_o                  (hready_apb1_br),
         .hwdata_slave_o                  (hwdata_apb1_br_o),
-        .hresp_decoder_o                 (hresp_apb1_br),
-        .hrdata_decoder_o                (hrdata_apb1_br)
+        .hreadyout_slave_i               (hreadyout_apb1_br_i),
+        .hresp_slave_i                   (hresp_apb1_br_i),
+        .hrdata_slave_i                  (hrdata_apb1_br_i),
+        .hreadyout_cm3_ibus_decoder_o    (apb1_br_hreadyout_master_cm3_ibus),
+        .hresp_cm3_ibus_decoder_o        (apb1_br_hresp_master_cm3_ibus),
+        .hrdata_cm3_ibus_decoder_o       (apb1_br_hrdata_master_cm3_ibus),
+        .hreadyout_cm3_dbus_decoder_o    (apb1_br_hreadyout_master_cm3_dbus),
+        .hresp_cm3_dbus_decoder_o        (apb1_br_hresp_master_cm3_dbus),
+        .hrdata_cm3_dbus_decoder_o       (apb1_br_hrdata_master_cm3_dbus),
+        .hreadyout_cm3_sbus_decoder_o    (apb1_br_hreadyout_master_cm3_sbus),
+        .hresp_cm3_sbus_decoder_o        (apb1_br_hresp_master_cm3_sbus),
+        .hrdata_cm3_sbus_decoder_o       (apb1_br_hrdata_master_cm3_sbus)
     );
 
-    /* hready_slave_o feeds back into every decoder of this slave port */
     assign hready_rcc_o = hready_rcc;
     assign hready_flash_o = hready_flash;
     assign hready_sram_o = hready_sram;

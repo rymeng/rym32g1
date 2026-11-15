@@ -9,15 +9,14 @@ module bus_icc_default_slave (
     output logic       hreadyout_o,
     output logic [1:0] hresp_o
 );
+    import bus_icc_pkg::*;
+
     /* Generate address phase invalid signal */
     logic addr_invalid;
 
     assign addr_invalid = hsel_i && htrans_i && hready_i;
 
     /* Output HREADYOUT signals */
-    localparam int HRESP_OKAY = 2'b00;
-    localparam int HRESP_ERROR = 2'b01;
-
     logic       hreadyout;
     logic       hreadyout_next;
 

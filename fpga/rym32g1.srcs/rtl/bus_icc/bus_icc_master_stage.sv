@@ -36,21 +36,7 @@ module bus_icc_master_stage (
     output logic        hmastlock_slave_stage_o,
     output logic        xfer_req_slave_stage_o
 );
-    /* HTRANS / HBURST / HRESP code */
-    localparam int HTRANS_IDLE   = 2'b00;
-    localparam int HTRANS_NONSEQ = 2'b10;
-    localparam int HTRANS_SEQ    = 2'b11;
-
-    localparam int HBURST_SINGLE = 3'b000;
-    localparam int HBURST_INCR   = 3'b001;
-    localparam int HBURST_WRAP4  = 3'b010;
-    localparam int HBURST_INCR4  = 3'b011;
-    localparam int HBURST_WRAP8  = 3'b100;
-    localparam int HBURST_INCR8  = 3'b101;
-    localparam int HBURST_WRAP16 = 3'b110;
-    localparam int HBURST_INCR16 = 3'b111;
-
-    localparam int HRESP_OKAY    = 2'b00;
+    import bus_icc_pkg::*;
 
     /* Generate address phase & data phase flag signals */
     logic addr_phase;
