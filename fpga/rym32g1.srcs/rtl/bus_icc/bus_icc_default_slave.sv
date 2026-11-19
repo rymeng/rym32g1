@@ -7,7 +7,7 @@ module bus_icc_default_slave (
     input  logic       htrans_i,
     input  logic       hready_i,
     output logic       hreadyout_o,
-    output logic [1:0] hresp_o
+    output logic       hresp_o
 );
     import bus_icc_pkg::*;
 
@@ -39,8 +39,8 @@ module bus_icc_default_slave (
     assign hreadyout_o = hreadyout;
 
     /* Output HRESP signals */
-    logic [1:0] hresp;
-    logic [1:0] hresp_next;
+    logic       hresp;
+    logic       hresp_next;
 
     always_comb begin
         if (addr_invalid) begin

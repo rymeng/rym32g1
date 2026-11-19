@@ -18,8 +18,8 @@ package bus_icc_pkg;
     localparam logic [2:0] HBURST_INCR16 = 3'b111;
 
     /* HRESP code */
-    localparam logic [1:0] HRESP_OKAY    = 2'b00;
-    localparam logic [1:0] HRESP_ERROR   = 2'b01;
+    localparam logic HRESP_OKAY    = 1'b0;
+    localparam logic HRESP_ERROR   = 1'b1;
 
     /* Master code */
     localparam logic [1:0] CM3_IBUS_CODE = 2'b00;

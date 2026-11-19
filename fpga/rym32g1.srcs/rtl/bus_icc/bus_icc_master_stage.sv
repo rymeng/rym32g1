@@ -16,14 +16,14 @@ module bus_icc_master_stage (
     input  logic        hmastlock_master_i,
     input  logic        hready_master_i,
     output logic        hreadyout_master_o,
-    output logic [1:0]  hresp_master_o,
+    output logic        hresp_master_o,
     /* Output-to-decoder signals */
     output logic        hsel_decoder_o,
     output logic [31:0] haddr_decoder_o,
     output logic [1:0]  htrans_decoder_o,
     /* Input-from-decoder signals */
     input  logic        hreadyout_decoder_i,
-    input  logic [1:0]  hresp_decoder_i,
+    input  logic        hresp_decoder_i,
     input  logic        xfer_granted_decoder_i,
     /* Output-to-slave-stage signals */
     output logic [31:0] haddr_slave_stage_o,
@@ -89,6 +89,7 @@ module bus_icc_master_stage (
     /* Transfer stalled FSM */
     logic xfer_stalled;
     logic xfer_stalled_next;
+    logic xfer_replay_active;
     
     always_ff @(posedge hclk_i or negedge hreset_n_i) begin
         if (!hreset_n_i) begin
@@ -99,12 +100,28 @@ module bus_icc_master_stage (
     end
 
     always_comb begin
-        if (addr_phase_valid && !xfer_granted_decoder_i) begin
+        if (xfer_replay_active) begin
+            if (hreadyout_decoder_i) begin
+                xfer_stalled_next = addr_phase_valid && !xfer_granted_decoder_i;
+            end else begin
+                xfer_stalled_next = 1'b0;
+            end
+        end else if (addr_phase_valid && !xfer_granted_decoder_i) begin
             xfer_stalled_next = 1'b1;
         end else if (xfer_granted_decoder_i && hreadyout_decoder_i) begin
             xfer_stalled_next = 1'b0;
         end else begin
             xfer_stalled_next = xfer_stalled;
+        end
+    end
+
+    always_ff @(posedge hclk_i or negedge hreset_n_i) begin
+        if (!hreset_n_i) begin
+            xfer_replay_active <= 1'b0;
+        end else if (xfer_stalled && xfer_granted_decoder_i && hreadyout_decoder_i) begin
+            xfer_replay_active <= 1'b1;
+        end else if (xfer_replay_active && hreadyout_decoder_i) begin
+            xfer_replay_active <= 1'b0;
         end
     end
 
@@ -200,7 +217,17 @@ module bus_icc_master_stage (
 
     /* Output HSEL / HADDR / HWRITE / HSIZE / HMASTER / HBURST / HPROT / HMASTLOCK signals */
     always_comb begin
-        if (!xfer_stalled) begin
+        if (xfer_replay_active && !hreadyout_decoder_i) begin
+            hsel_decoder_o          = 1'b0;
+            haddr_decoder_o         = haddr;
+            haddr_slave_stage_o     = haddr;
+            hwrite_slave_stage_o    = hwrite;
+            hsize_slave_stage_o     = hsize;
+            hmaster_slave_stage_o   = hmaster;
+            hburst_slave_stage_o    = hburst;
+            hprot_slave_stage_o     = hprot;
+            hmastlock_slave_stage_o = hmastlock;
+        end else if (!xfer_stalled) begin
             hsel_decoder_o          = hsel_master_i;
             haddr_decoder_o         = haddr_master_i;
             haddr_slave_stage_o     = haddr_master_i;
@@ -238,11 +265,14 @@ module bus_icc_master_stage (
     end
     
     /* Output transfer request */
-    assign xfer_req_slave_stage_o = addr_phase_valid || xfer_stalled;
+    assign xfer_req_slave_stage_o = xfer_replay_active ? (hreadyout_decoder_i && addr_phase_valid) : (addr_phase_valid || xfer_stalled);
 
     /* Output HTRANS */
     always_comb begin
-        if (xfer_stalled) begin
+        if (xfer_replay_active && !hreadyout_decoder_i) begin
+            htrans_decoder_o = HTRANS_IDLE;
+            htrans_slave_stage_o = HTRANS_IDLE;
+        end else if (xfer_stalled) begin
             htrans_decoder_o = HTRANS_NONSEQ;
             htrans_slave_stage_o = HTRANS_NONSEQ;
         end else begin

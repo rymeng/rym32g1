@@ -130,59 +130,59 @@ module top (
     assign scan_enabled = 1'b0;
 
     /* AHB-Lite instruction master signal */
-    logic [31:0] haddr_master_cm3_ibus;
-    logic        hwrite_master_cm3_ibus;
-    logic [2:0]  hsize_master_cm3_ibus;
-    logic [2:0]  hburst_master_cm3_ibus;
-    logic [3:0]  hprot_master_cm3_ibus;
-    logic [3:0]  hmaster_master_cm3_ibus;
-    logic [1:0]  htrans_master_cm3_ibus;
-    logic        hmastlock_master_cm3_ibus;
-    logic [31:0] hwdata_master_cm3_ibus;
-    logic        hready_master_cm3_ibus;
-    logic [1:0]  hresp_master_cm3_ibus;
-    logic [31:0] hrdata_master_cm3_ibus;
+    logic [31:0] haddr_cm3_ibus;
+    logic        hwrite_cm3_ibus;
+    logic [2:0]  hsize_cm3_ibus;
+    logic [2:0]  hburst_cm3_ibus;
+    logic [3:0]  hprot_cm3_ibus;
+    logic [3:0]  hmaster_cm3_ibus;
+    logic [1:0]  htrans_cm3_ibus;
+    logic        hmastlock_cm3_ibus;
+    logic [31:0] hwdata_cm3_ibus;
+    logic        hready_cm3_ibus;
+    logic [1:0]  hresp_cm3_ibus;
+    logic [31:0] hrdata_cm3_ibus;
 
     /* AHB-Lite data master signal */
-    logic [31:0] haddr_master_cm3_dbus;
-    logic [31:0] hwdata_master_cm3_dbus;
-    logic        hwrite_master_cm3_dbus;
-    logic [1:0]  htrans_master_cm3_dbus;
-    logic [2:0]  hsize_master_cm3_dbus;
-    logic [2:0]  hburst_master_cm3_dbus;
-    logic [3:0]  hprot_master_cm3_dbus;
-    logic [1:0]  hmaster_master_cm3_dbus;
-    logic        hmastlock_master_cm3_dbus;
-    logic        hready_master_cm3_dbus;
-    logic [1:0]  hresp_master_cm3_dbus;
-    logic [31:0] hrdata_master_cm3_dbus;
-    logic        exresp_master_cm3_dbus;
+    logic [31:0] haddr_cm3_dbus;
+    logic [31:0] hwdata_cm3_dbus;
+    logic        hwrite_cm3_dbus;
+    logic [1:0]  htrans_cm3_dbus;
+    logic [2:0]  hsize_cm3_dbus;
+    logic [2:0]  hburst_cm3_dbus;
+    logic [3:0]  hprot_cm3_dbus;
+    logic [1:0]  hmaster_cm3_dbus;
+    logic        hmastlock_cm3_dbus;
+    logic        hready_cm3_dbus;
+    logic [1:0]  hresp_cm3_dbus;
+    logic [31:0] hrdata_cm3_dbus;
+    logic        exresp_cm3_dbus;
 
     /* AHB-Lite system master signal */
-    logic [31:0] haddr_master_cm3_sbus;
-    logic        hwrite_master_cm3_sbus;
-    logic [2:0]  hsize_master_cm3_sbus;
-    logic [2:0]  hburst_master_cm3_sbus;
-    logic [3:0]  hprot_master_cm3_sbus;
-    logic [1:0]  hmaster_master_cm3_sbus;
-    logic [1:0]  htrans_master_cm3_sbus;
-    logic        hmastlock_master_cm3_sbus;
-    logic [31:0] hwdata_master_cm3_sbus;
-    logic        hready_master_cm3_sbus;
-    logic [1:0]  hresp_master_cm3_sbus;
-    logic [31:0] hrdata_master_cm3_sbus;
-    logic        exresp_master_cm3_sbus;
+    logic [31:0] haddr_cm3_sbus;
+    logic        hwrite_cm3_sbus;
+    logic [2:0]  hsize_cm3_sbus;
+    logic [2:0]  hburst_cm3_sbus;
+    logic [3:0]  hprot_cm3_sbus;
+    logic [1:0]  hmaster_cm3_sbus;
+    logic [1:0]  htrans_cm3_sbus;
+    logic        hmastlock_cm3_sbus;
+    logic [31:0] hwdata_cm3_sbus;
+    logic        hready_cm3_sbus;
+    logic [1:0]  hresp_cm3_sbus;
+    logic [31:0] hrdata_cm3_sbus;
+    logic        exresp_cm3_sbus;
 
     /* Instruction master performs read-only accesses on the code bus */
-    assign hwdata_master_cm3_ibus = 32'b0;
-    assign hwrite_master_cm3_ibus = 1'b0;
-    assign hmastlock_master_cm3_ibus = 1'b0;
+    assign hwdata_cm3_ibus = 32'b0;
+    assign hwrite_cm3_ibus = 1'b0;
+    assign hmastlock_cm3_ibus = 1'b0;
 
     /* Data master exposes no lock signal at the integration level */
-    assign hmastlock_master_cm3_dbus = 1'b0;
+    assign hmastlock_cm3_dbus = 1'b0;
 
     /* Code bus is processor-only, so HMASTER 0 identifies the CPU */
-    assign hmaster_master_cm3_ibus = 4'h0;
+    assign hmaster_cm3_ibus = 4'h0;
 
     /* ARM Cortex-M3 DesignStart sub-system (obfuscated eval netlist) */
     CORTEXM3INTEGRATIONDS core1 (
@@ -210,18 +210,18 @@ module top (
         .INTISR        (interrupt_req),
         .INTNMI        (non_maskable_interrupt),
 
-        .HREADYI       (hready_master_cm3_ibus),
-        .HRDATAI       (hrdata_master_cm3_ibus),
-        .HRESPI        (hresp_master_cm3_ibus),
+        .HREADYI       (hready_cm3_ibus),
+        .HRDATAI       (hrdata_cm3_ibus),
+        .HRESPI        (hresp_cm3_ibus),
         .IFLUSH        (1'b0),
-        .HREADYD       (hready_master_cm3_dbus),
-        .HRDATAD       (hrdata_master_cm3_dbus),
-        .HRESPD        (hresp_master_cm3_dbus),
-        .EXRESPD       (exresp_master_cm3_dbus),
-        .HREADYS       (hready_master_cm3_sbus),
-        .HRDATAS       (hrdata_master_cm3_sbus),
-        .HRESPS        (hresp_master_cm3_sbus),
-        .EXRESPS       (exresp_master_cm3_sbus),
+        .HREADYD       (hready_cm3_dbus),
+        .HRDATAD       (hrdata_cm3_dbus),
+        .HRESPD        (hresp_cm3_dbus),
+        .EXRESPD       (exresp_cm3_dbus),
+        .HREADYS       (hready_cm3_sbus),
+        .HRDATAS       (hrdata_cm3_sbus),
+        .HRESPS        (hresp_cm3_sbus),
+        .EXRESPS       (exresp_cm3_sbus),
 
         .RXEV          (rx_event),
         .SLEEPHOLDREQn (sleep_hold_req_n),
@@ -256,32 +256,32 @@ module top (
         .HTMDHREADY    (),
         .HTMDHRESP     (),
 
-        .HADDRI        (haddr_master_cm3_ibus),
-        .HTRANSI       (htrans_master_cm3_ibus),
-        .HSIZEI        (hsize_master_cm3_ibus),
-        .HBURSTI       (hburst_master_cm3_ibus),
-        .HPROTI        (hprot_master_cm3_ibus),
+        .HADDRI        (haddr_cm3_ibus),
+        .HTRANSI       (htrans_cm3_ibus),
+        .HSIZEI        (hsize_cm3_ibus),
+        .HBURSTI       (hburst_cm3_ibus),
+        .HPROTI        (hprot_cm3_ibus),
         .MEMATTRI      (),
-        .HADDRD        (haddr_master_cm3_dbus),
-        .HTRANSD       (htrans_master_cm3_dbus),
-        .HSIZED        (hsize_master_cm3_dbus),
-        .HWRITED       (hwrite_master_cm3_dbus),
-        .HBURSTD       (hburst_master_cm3_dbus),
-        .HPROTD        (hprot_master_cm3_dbus),
+        .HADDRD        (haddr_cm3_dbus),
+        .HTRANSD       (htrans_cm3_dbus),
+        .HSIZED        (hsize_cm3_dbus),
+        .HWRITED       (hwrite_cm3_dbus),
+        .HBURSTD       (hburst_cm3_dbus),
+        .HPROTD        (hprot_cm3_dbus),
         .MEMATTRD      (),
-        .HMASTERD       (hmaster_master_cm3_dbus),
-        .HWDATAD       (hwdata_master_cm3_dbus),
+        .HMASTERD      (hmaster_cm3_dbus),
+        .HWDATAD       (hwdata_cm3_dbus),
         .EXREQD        (),
-        .HADDRS        (haddr_master_cm3_sbus),
-        .HTRANSS       (htrans_master_cm3_sbus),
-        .HSIZES        (hsize_master_cm3_sbus),
-        .HWRITES       (hwrite_master_cm3_sbus),
-        .HBURSTS       (hburst_master_cm3_sbus),
-        .HPROTS        (hprot_master_cm3_sbus),
-        .HMASTLOCKS    (hmastlock_master_cm3_sbus),
+        .HADDRS        (haddr_cm3_sbus),
+        .HTRANSS       (htrans_cm3_sbus),
+        .HSIZES        (hsize_cm3_sbus),
+        .HWRITES       (hwrite_cm3_sbus),
+        .HBURSTS       (hburst_cm3_sbus),
+        .HPROTS        (hprot_cm3_sbus),
+        .HMASTLOCKS    (hmastlock_cm3_sbus),
         .MEMATTRS      (),
-        .HMASTERS       (hmaster_master_cm3_sbus),
-        .HWDATAS       (hwdata_master_cm3_sbus),
+        .HMASTERS      (hmaster_cm3_sbus),
+        .HWDATAS       (hwdata_cm3_sbus),
         .EXREQS        (),
 
         .BRCHSTAT      (),
@@ -908,159 +908,159 @@ module top (
 
     /* AHB bus matrix: three Cortex-M3 master ports and seven slave ports */
     bus_icc_top bus_icc (
-        .hclk_i                      (hclk),
-        .hreset_n_i                  (sysrst_n),
-        .remap_i                     (4'b0000),
+        .hclk_i               (hclk),
+        .hreset_n_i           (sysrst_n),
+        .remap_i              (4'b0000),
 
         /* Cortex-M3 instruction bus */
-        .haddr_master_cm3_ibus_i     (haddr_master_cm3_ibus),
-        .hwrite_master_cm3_ibus_i    (hwrite_master_cm3_ibus),
-        .hsize_master_cm3_ibus_i     (hsize_master_cm3_ibus),
-        .hburst_master_cm3_ibus_i    (hburst_master_cm3_ibus),
-        .hprot_master_cm3_ibus_i     (hprot_master_cm3_ibus),
-        .hmaster_master_cm3_ibus_i   (hmaster_master_cm3_ibus),
-        .htrans_master_cm3_ibus_i    (htrans_master_cm3_ibus),
-        .hmastlock_master_cm3_ibus_i (hmastlock_master_cm3_ibus),
-        .hwdata_master_cm3_ibus_i    (hwdata_master_cm3_ibus),
-        .hready_master_cm3_ibus_o    (hready_master_cm3_ibus),
-        .hresp_master_cm3_ibus_o     (hresp_master_cm3_ibus[0]),
-        .hrdata_master_cm3_ibus_o    (hrdata_master_cm3_ibus),
+        .haddr_cm3_ibus_i     (haddr_cm3_ibus),
+        .hwrite_cm3_ibus_i    (hwrite_cm3_ibus),
+        .hsize_cm3_ibus_i     (hsize_cm3_ibus),
+        .hburst_cm3_ibus_i    (hburst_cm3_ibus),
+        .hprot_cm3_ibus_i     (hprot_cm3_ibus),
+        .hmaster_cm3_ibus_i   (hmaster_cm3_ibus),
+        .htrans_cm3_ibus_i    (htrans_cm3_ibus),
+        .hmastlock_cm3_ibus_i (hmastlock_cm3_ibus),
+        .hwdata_cm3_ibus_i    (hwdata_cm3_ibus),
+        .hready_cm3_ibus_o    (hready_cm3_ibus),
+        .hresp_cm3_ibus_o     (hresp_cm3_ibus[0]),
+        .hrdata_cm3_ibus_o    (hrdata_cm3_ibus),
 
         /* Cortex-M3 data bus */
-        .haddr_master_cm3_dbus_i     (haddr_master_cm3_dbus),
-        .hwrite_master_cm3_dbus_i    (hwrite_master_cm3_dbus),
-        .hsize_master_cm3_dbus_i     (hsize_master_cm3_dbus),
-        .hburst_master_cm3_dbus_i    (hburst_master_cm3_dbus),
-        .hprot_master_cm3_dbus_i     (hprot_master_cm3_dbus),
-        .hmaster_master_cm3_dbus_i   ({2'b00, hmaster_master_cm3_dbus}),
-        .htrans_master_cm3_dbus_i    (htrans_master_cm3_dbus),
-        .hmastlock_master_cm3_dbus_i (hmastlock_master_cm3_dbus),
-        .hwdata_master_cm3_dbus_i    (hwdata_master_cm3_dbus),
-        .hready_master_cm3_dbus_o    (hready_master_cm3_dbus),
-        .hresp_master_cm3_dbus_o     (hresp_master_cm3_dbus[0]),
-        .hrdata_master_cm3_dbus_o    (hrdata_master_cm3_dbus),
+        .haddr_cm3_dbus_i     (haddr_cm3_dbus),
+        .hwrite_cm3_dbus_i    (hwrite_cm3_dbus),
+        .hsize_cm3_dbus_i     (hsize_cm3_dbus),
+        .hburst_cm3_dbus_i    (hburst_cm3_dbus),
+        .hprot_cm3_dbus_i     (hprot_cm3_dbus),
+        .hmaster_cm3_dbus_i   ({2'b00, hmaster_cm3_dbus}),
+        .htrans_cm3_dbus_i    (htrans_cm3_dbus),
+        .hmastlock_cm3_dbus_i (hmastlock_cm3_dbus),
+        .hwdata_cm3_dbus_i    (hwdata_cm3_dbus),
+        .hready_cm3_dbus_o    (hready_cm3_dbus),
+        .hresp_cm3_dbus_o     (hresp_cm3_dbus[0]),
+        .hrdata_cm3_dbus_o    (hrdata_cm3_dbus),
 
         /* Cortex-M3 system bus */
-        .haddr_master_cm3_sbus_i     (haddr_master_cm3_sbus),
-        .hwrite_master_cm3_sbus_i    (hwrite_master_cm3_sbus),
-        .hsize_master_cm3_sbus_i     (hsize_master_cm3_sbus),
-        .hburst_master_cm3_sbus_i    (hburst_master_cm3_sbus),
-        .hprot_master_cm3_sbus_i     (hprot_master_cm3_sbus),
-        .hmaster_master_cm3_sbus_i   ({2'b00, hmaster_master_cm3_sbus}),
-        .htrans_master_cm3_sbus_i    (htrans_master_cm3_sbus),
-        .hmastlock_master_cm3_sbus_i (hmastlock_master_cm3_sbus),
-        .hwdata_master_cm3_sbus_i    (hwdata_master_cm3_sbus),
-        .hready_master_cm3_sbus_o    (hready_master_cm3_sbus),
-        .hresp_master_cm3_sbus_o     (hresp_master_cm3_sbus[0]),
-        .hrdata_master_cm3_sbus_o    (hrdata_master_cm3_sbus),
+        .haddr_cm3_sbus_i     (haddr_cm3_sbus),
+        .hwrite_cm3_sbus_i    (hwrite_cm3_sbus),
+        .hsize_cm3_sbus_i     (hsize_cm3_sbus),
+        .hburst_cm3_sbus_i    (hburst_cm3_sbus),
+        .hprot_cm3_sbus_i     (hprot_cm3_sbus),
+        .hmaster_cm3_sbus_i   ({2'b00, hmaster_cm3_sbus}),
+        .htrans_cm3_sbus_i    (htrans_cm3_sbus),
+        .hmastlock_cm3_sbus_i (hmastlock_cm3_sbus),
+        .hwdata_cm3_sbus_i    (hwdata_cm3_sbus),
+        .hready_cm3_sbus_o    (hready_cm3_sbus),
+        .hresp_cm3_sbus_o     (hresp_cm3_sbus[0]),
+        .hrdata_cm3_sbus_o    (hrdata_cm3_sbus),
 
         /* AHB slave ports 01 to 07 */
-        .hsel_rcc_o                  (hsel_rcc),
-        .haddr_rcc_o                 (haddr_rcc),
-        .hwrite_rcc_o                (hwrite_rcc),
-        .hsize_rcc_o                 (hsize_rcc),
-        .hmaster_rcc_o               (hmaster_rcc),
-        .htrans_rcc_o                (htrans_rcc),
-        .hburst_rcc_o                (hburst_rcc),
-        .hprot_rcc_o                 (hprot_rcc),
-        .hmastlock_rcc_o             (hmastlock_rcc),
-        .hready_rcc_o                (hready_rcc),
-        .hwdata_rcc_o                (hwdata_rcc),
-        .hreadyout_rcc_i             (hreadyout_rcc),
-        .hresp_rcc_i                 (hresp_rcc),
-        .hrdata_rcc_i                (hrdata_rcc),
-        .hsel_flash_o                (hsel_flash),
-        .haddr_flash_o               (haddr_flash),
-        .hwrite_flash_o              (hwrite_flash),
-        .hsize_flash_o               (hsize_flash),
-        .hmaster_flash_o             (hmaster_flash),
-        .htrans_flash_o              (htrans_flash),
-        .hburst_flash_o              (hburst_flash),
-        .hprot_flash_o               (hprot_flash),
-        .hmastlock_flash_o           (hmastlock_flash),
-        .hready_flash_o              (hready_flash),
-        .hwdata_flash_o              (hwdata_flash),
-        .hreadyout_flash_i           (hreadyout_flash),
-        .hresp_flash_i               (hresp_flash),
-        .hrdata_flash_i              (hrdata_flash),
-        .hsel_sram_o                 (hsel_sram),
-        .haddr_sram_o                (haddr_sram),
-        .hwrite_sram_o               (hwrite_sram),
-        .hsize_sram_o                (hsize_sram),
-        .hmaster_sram_o              (hmaster_sram),
-        .htrans_sram_o               (htrans_sram),
-        .hburst_sram_o               (hburst_sram),
-        .hprot_sram_o                (hprot_sram),
-        .hmastlock_sram_o            (hmastlock_sram),
-        .hready_sram_o               (hready_sram),
-        .hwdata_sram_o               (hwdata_sram),
-        .hreadyout_sram_i            (hreadyout_sram),
-        .hresp_sram_i                (hresp_sram),
-        .hrdata_sram_i               (hrdata_sram),
-        .hsel_gpioa_o                (hsel_gpioa),
-        .haddr_gpioa_o               (haddr_gpioa),
-        .hwrite_gpioa_o              (hwrite_gpioa),
-        .hsize_gpioa_o               (hsize_gpioa),
-        .hmaster_gpioa_o             (hmaster_gpioa),
-        .htrans_gpioa_o              (htrans_gpioa),
-        .hburst_gpioa_o              (hburst_gpioa),
-        .hprot_gpioa_o               (hprot_gpioa),
-        .hmastlock_gpioa_o           (hmastlock_gpioa),
-        .hready_gpioa_o              (hready_gpioa),
-        .hwdata_gpioa_o              (hwdata_gpioa),
-        .hreadyout_gpioa_i           (hreadyout_gpioa),
-        .hresp_gpioa_i               (hresp_gpioa),
-        .hrdata_gpioa_i              (hrdata_gpioa),
-        .hsel_gpiob_o                (hsel_gpiob),
-        .haddr_gpiob_o               (haddr_gpiob),
-        .hwrite_gpiob_o              (hwrite_gpiob),
-        .hsize_gpiob_o               (hsize_gpiob),
-        .hmaster_gpiob_o             (hmaster_gpiob),
-        .htrans_gpiob_o              (htrans_gpiob),
-        .hburst_gpiob_o              (hburst_gpiob),
-        .hprot_gpiob_o               (hprot_gpiob),
-        .hmastlock_gpiob_o           (hmastlock_gpiob),
-        .hready_gpiob_o              (hready_gpiob),
-        .hwdata_gpiob_o              (hwdata_gpiob),
-        .hreadyout_gpiob_i           (hreadyout_gpiob),
-        .hresp_gpiob_i               (hresp_gpiob),
-        .hrdata_gpiob_i              (hrdata_gpiob),
-        .hsel_fmc_o                  (hsel_fmc),
-        .haddr_fmc_o                 (haddr_fmc),
-        .hwrite_fmc_o                (hwrite_fmc),
-        .hsize_fmc_o                 (hsize_fmc),
-        .hmaster_fmc_o               (hmaster_fmc),
-        .htrans_fmc_o                (htrans_fmc),
-        .hburst_fmc_o                (hburst_fmc),
-        .hprot_fmc_o                 (hprot_fmc),
-        .hmastlock_fmc_o             (hmastlock_fmc),
-        .hready_fmc_o                (hready_fmc),
-        .hwdata_fmc_o                (hwdata_fmc),
-        .hreadyout_fmc_i             (hreadyout_fmc),
-        .hresp_fmc_i                 (hresp_fmc),
-        .hrdata_fmc_i                (hrdata_fmc),
-        .hsel_apb1_br_o              (hsel_apb1_br),
-        .haddr_apb1_br_o             (haddr_apb1_br),
-        .hwrite_apb1_br_o            (hwrite_apb1_br),
-        .hsize_apb1_br_o             (hsize_apb1_br),
-        .hmaster_apb1_br_o           (hmaster_apb1_br),
-        .htrans_apb1_br_o            (htrans_apb1_br),
-        .hburst_apb1_br_o            (hburst_apb1_br),
-        .hprot_apb1_br_o             (hprot_apb1_br),
-        .hmastlock_apb1_br_o         (hmastlock_apb1_br),
-        .hready_apb1_br_o            (hready_apb1_br),
-        .hwdata_apb1_br_o            (hwdata_apb1_br),
-        .hreadyout_apb1_br_i         (hreadyout_apb1_br),
-        .hresp_apb1_br_i             (hresp_apb1_br),
-        .hrdata_apb1_br_i            (hrdata_apb1_br)
+        .hsel_rcc_o           (hsel_rcc),
+        .haddr_rcc_o          (haddr_rcc),
+        .hwrite_rcc_o         (hwrite_rcc),
+        .hsize_rcc_o          (hsize_rcc),
+        .hmaster_rcc_o        (hmaster_rcc),
+        .htrans_rcc_o         (htrans_rcc),
+        .hburst_rcc_o         (hburst_rcc),
+        .hprot_rcc_o          (hprot_rcc),
+        .hmastlock_rcc_o      (hmastlock_rcc),
+        .hready_rcc_o         (hready_rcc),
+        .hwdata_rcc_o         (hwdata_rcc),
+        .hreadyout_rcc_i      (hreadyout_rcc),
+        .hresp_rcc_i          (hresp_rcc),
+        .hrdata_rcc_i         (hrdata_rcc),
+        .hsel_flash_o         (hsel_flash),
+        .haddr_flash_o        (haddr_flash),
+        .hwrite_flash_o       (hwrite_flash),
+        .hsize_flash_o        (hsize_flash),
+        .hmaster_flash_o      (hmaster_flash),
+        .htrans_flash_o       (htrans_flash),
+        .hburst_flash_o       (hburst_flash),
+        .hprot_flash_o        (hprot_flash),
+        .hmastlock_flash_o    (hmastlock_flash),
+        .hready_flash_o       (hready_flash),
+        .hwdata_flash_o       (hwdata_flash),
+        .hreadyout_flash_i    (hreadyout_flash),
+        .hresp_flash_i        (hresp_flash),
+        .hrdata_flash_i       (hrdata_flash),
+        .hsel_sram_o          (hsel_sram),
+        .haddr_sram_o         (haddr_sram),
+        .hwrite_sram_o        (hwrite_sram),
+        .hsize_sram_o         (hsize_sram),
+        .hmaster_sram_o       (hmaster_sram),
+        .htrans_sram_o        (htrans_sram),
+        .hburst_sram_o        (hburst_sram),
+        .hprot_sram_o         (hprot_sram),
+        .hmastlock_sram_o     (hmastlock_sram),
+        .hready_sram_o        (hready_sram),
+        .hwdata_sram_o        (hwdata_sram),
+        .hreadyout_sram_i     (hreadyout_sram),
+        .hresp_sram_i         (hresp_sram),
+        .hrdata_sram_i        (hrdata_sram),
+        .hsel_gpioa_o         (hsel_gpioa),
+        .haddr_gpioa_o        (haddr_gpioa),
+        .hwrite_gpioa_o       (hwrite_gpioa),
+        .hsize_gpioa_o        (hsize_gpioa),
+        .hmaster_gpioa_o      (hmaster_gpioa),
+        .htrans_gpioa_o       (htrans_gpioa),
+        .hburst_gpioa_o       (hburst_gpioa),
+        .hprot_gpioa_o        (hprot_gpioa),
+        .hmastlock_gpioa_o    (hmastlock_gpioa),
+        .hready_gpioa_o       (hready_gpioa),
+        .hwdata_gpioa_o       (hwdata_gpioa),
+        .hreadyout_gpioa_i    (hreadyout_gpioa),
+        .hresp_gpioa_i        (hresp_gpioa),
+        .hrdata_gpioa_i       (hrdata_gpioa),
+        .hsel_gpiob_o         (hsel_gpiob),
+        .haddr_gpiob_o        (haddr_gpiob),
+        .hwrite_gpiob_o       (hwrite_gpiob),
+        .hsize_gpiob_o        (hsize_gpiob),
+        .hmaster_gpiob_o      (hmaster_gpiob),
+        .htrans_gpiob_o       (htrans_gpiob),
+        .hburst_gpiob_o       (hburst_gpiob),
+        .hprot_gpiob_o        (hprot_gpiob),
+        .hmastlock_gpiob_o    (hmastlock_gpiob),
+        .hready_gpiob_o       (hready_gpiob),
+        .hwdata_gpiob_o       (hwdata_gpiob),
+        .hreadyout_gpiob_i    (hreadyout_gpiob),
+        .hresp_gpiob_i        (hresp_gpiob),
+        .hrdata_gpiob_i       (hrdata_gpiob),
+        .hsel_fmc_o           (hsel_fmc),
+        .haddr_fmc_o          (haddr_fmc),
+        .hwrite_fmc_o         (hwrite_fmc),
+        .hsize_fmc_o          (hsize_fmc),
+        .hmaster_fmc_o        (hmaster_fmc),
+        .htrans_fmc_o         (htrans_fmc),
+        .hburst_fmc_o         (hburst_fmc),
+        .hprot_fmc_o          (hprot_fmc),
+        .hmastlock_fmc_o      (hmastlock_fmc),
+        .hready_fmc_o         (hready_fmc),
+        .hwdata_fmc_o         (hwdata_fmc),
+        .hreadyout_fmc_i      (hreadyout_fmc),
+        .hresp_fmc_i          (hresp_fmc),
+        .hrdata_fmc_i         (hrdata_fmc),
+        .hsel_apb1_br_o       (hsel_apb1_br),
+        .haddr_apb1_br_o      (haddr_apb1_br),
+        .hwrite_apb1_br_o     (hwrite_apb1_br),
+        .hsize_apb1_br_o      (hsize_apb1_br),
+        .hmaster_apb1_br_o    (hmaster_apb1_br),
+        .htrans_apb1_br_o     (htrans_apb1_br),
+        .hburst_apb1_br_o     (hburst_apb1_br),
+        .hprot_apb1_br_o      (hprot_apb1_br),
+        .hmastlock_apb1_br_o  (hmastlock_apb1_br),
+        .hready_apb1_br_o     (hready_apb1_br),
+        .hwdata_apb1_br_o     (hwdata_apb1_br),
+        .hreadyout_apb1_br_i  (hreadyout_apb1_br),
+        .hresp_apb1_br_i      (hresp_apb1_br),
+        .hrdata_apb1_br_i     (hrdata_apb1_br)
     );
 
     /* The bus matrix is AHB-Lite: HRESP is one bit and there is no
        exclusive response */
-    assign hresp_master_cm3_ibus[1] = 1'b0;
-    assign hresp_master_cm3_dbus[1] = 1'b0;
-    assign hresp_master_cm3_sbus[1] = 1'b0;
-    assign exresp_master_cm3_dbus = 1'b0;
-    assign exresp_master_cm3_sbus = 1'b0;
+    assign hresp_cm3_ibus[1] = 1'b0;
+    assign hresp_cm3_dbus[1] = 1'b0;
+    assign hresp_cm3_sbus[1] = 1'b0;
+    assign exresp_cm3_dbus = 1'b0;
+    assign exresp_cm3_sbus = 1'b0;
 
 endmodule

@@ -17,7 +17,7 @@ module bus_icc_slave_stage (
     output logic        hready_slave_o,
     output logic [31:0] hwdata_slave_o,
     input  logic        hreadyout_slave_i,
-    input  logic [1:0]  hresp_slave_i,
+    input  logic        hresp_slave_i,
     input  logic [31:0] hrdata_slave_i,
     /* Input (from Cortex-M3 IBus decoder) signal */
     input  logic        hsel_cm3_ibus_decoder_i,
@@ -34,7 +34,7 @@ module bus_icc_slave_stage (
     input  logic        xfer_req_cm3_ibus_stage_i,
     /* Output (to Cortex-M3 IBus decoder) signal */
     output logic        hreadyout_cm3_ibus_decoder_o,
-    output logic [1:0]  hresp_cm3_ibus_decoder_o,
+    output logic        hresp_cm3_ibus_decoder_o,
     output logic [31:0] hrdata_cm3_ibus_decoder_o,
     output logic        xfer_granted_cm3_ibus_decoder_o,
     /* Input (from Cortex-M3 DBus decoder) signal */
@@ -52,7 +52,7 @@ module bus_icc_slave_stage (
     input  logic        xfer_req_cm3_dbus_stage_i,
     /* Output (to Cortex-M3 DBus decoder) signal */
     output logic        hreadyout_cm3_dbus_decoder_o,
-    output logic [1:0]  hresp_cm3_dbus_decoder_o,
+    output logic        hresp_cm3_dbus_decoder_o,
     output logic [31:0] hrdata_cm3_dbus_decoder_o,
     output logic        xfer_granted_cm3_dbus_decoder_o,
     /* Input (from Cortex-M3 SBus decoder) signal */
@@ -70,7 +70,7 @@ module bus_icc_slave_stage (
     input  logic        xfer_req_cm3_sbus_stage_i,
     /* Output (to Cortex-M3 SBus decoder) signal */
     output logic        hreadyout_cm3_sbus_decoder_o,
-    output logic [1:0]  hresp_cm3_sbus_decoder_o,
+    output logic        hresp_cm3_sbus_decoder_o,
     output logic [31:0] hrdata_cm3_sbus_decoder_o,
     output logic        xfer_granted_cm3_sbus_decoder_o
 );
@@ -89,7 +89,7 @@ module bus_icc_slave_stage (
     logic        hready;
     logic [31:0] hwdata;
     logic        hreadyout;
-    logic [1:0]  hresp;
+    logic        hresp;
     logic [31:0] hrdata;
 
     /* Get AHB slave interface signals (from slave) */
@@ -170,7 +170,7 @@ module bus_icc_slave_stage (
         xfer_granted_cm3_dbus_decoder = 1'b0;
         xfer_granted_cm3_sbus_decoder = 1'b0;
 
-        if (!granted_master_null) begin
+        if (!granted_master_null && hready) begin
             case (addr_phase_master_code)
                 CM3_IBUS_CODE: xfer_granted_cm3_ibus_decoder = 1'b1;
                 CM3_DBUS_CODE: xfer_granted_cm3_dbus_decoder = 1'b1;
@@ -281,24 +281,24 @@ module bus_icc_slave_stage (
 
     /* Route HREADYOUT / HRESP / HRDATA from the slave to the master in data phase */
     logic        hreadyout_cm3_ibus_decoder;
-    logic [1:0]  hresp_cm3_ibus_decoder;
+    logic        hresp_cm3_ibus_decoder;
     logic [31:0] hrdata_cm3_ibus_decoder;
     logic        hreadyout_cm3_dbus_decoder;
-    logic [1:0]  hresp_cm3_dbus_decoder;
+    logic        hresp_cm3_dbus_decoder;
     logic [31:0] hrdata_cm3_dbus_decoder;
     logic        hreadyout_cm3_sbus_decoder;
-    logic [1:0]  hresp_cm3_sbus_decoder;
+    logic        hresp_cm3_sbus_decoder;
     logic [31:0] hrdata_cm3_sbus_decoder;
 
     always_comb begin
         hreadyout_cm3_ibus_decoder = 1'b1;
-        hresp_cm3_ibus_decoder = 2'b00;
+        hresp_cm3_ibus_decoder = 1'b0;
         hrdata_cm3_ibus_decoder = 32'b0;
         hreadyout_cm3_dbus_decoder = 1'b1;
-        hresp_cm3_dbus_decoder = 2'b00;
+        hresp_cm3_dbus_decoder = 1'b0;
         hrdata_cm3_dbus_decoder = 32'b0;
         hreadyout_cm3_sbus_decoder = 1'b1;
-        hresp_cm3_sbus_decoder = 2'b00;
+        hresp_cm3_sbus_decoder = 1'b0;
         hrdata_cm3_sbus_decoder = 32'b0;
 
         case (data_phase_master_code)

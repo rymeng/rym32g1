@@ -10,56 +10,56 @@ module bus_icc_decoder (
     input  logic [1:0]  htrans_master_stage_i,
     input  logic        hready_master_stage_i,
     output logic        hreadyout_master_stage_o,
-    output logic [1:0]  hresp_master_stage_o,
+    output logic        hresp_master_stage_o,
     output logic [31:0] hrdata_master_stage_o,
     output logic        master_stage_xfer_granted_o,
     /* RCC */
     output logic        hsel_rcc_o,
     input  logic        hreadyout_rcc_i,
-    input  logic [1:0]  hresp_rcc_i,
+    input  logic        hresp_rcc_i,
     input  logic [31:0] hrdata_rcc_i,
     input  logic        rcc_xfer_granted_i,
     /* Flash */
     output logic        hsel_flash_o,
     input  logic        hreadyout_flash_i,
-    input  logic [1:0]  hresp_flash_i,
+    input  logic        hresp_flash_i,
     input  logic [31:0] hrdata_flash_i,
     input  logic        flash_xfer_granted_i,
     /* SRAM */
     output logic        hsel_sram_o,
     input  logic        hreadyout_sram_i,
-    input  logic [1:0]  hresp_sram_i,
+    input  logic        hresp_sram_i,
     input  logic [31:0] hrdata_sram_i,
     input  logic        sram_xfer_granted_i,
     /* GPIO A */
     output logic        hsel_gpioa_o,
     input  logic        hreadyout_gpioa_i,
-    input  logic [1:0]  hresp_gpioa_i,
+    input  logic        hresp_gpioa_i,
     input  logic [31:0] hrdata_gpioa_i,
     input  logic        gpioa_xfer_granted_i,
     /* GPIO B */
     output logic        hsel_gpiob_o,
     input  logic        hreadyout_gpiob_i,
-    input  logic [1:0]  hresp_gpiob_i,
+    input  logic        hresp_gpiob_i,
     input  logic [31:0] hrdata_gpiob_i,
     input  logic        gpiob_xfer_granted_i,
     /* FMC */
     output logic        hsel_fmc_o,
     input  logic        hreadyout_fmc_i,
-    input  logic [1:0]  hresp_fmc_i,
+    input  logic        hresp_fmc_i,
     input  logic [31:0] hrdata_fmc_i,
     input  logic        fmc_xfer_granted_i,
     /* AHB to APB bridge */
     output logic        hsel_apb1_br_o,
     input  logic        hreadyout_apb1_br_i,
-    input  logic [1:0]  hresp_apb1_br_i,
+    input  logic        hresp_apb1_br_i,
     input  logic [31:0] hrdata_apb1_br_i,
     input  logic        apb1_br_xfer_granted_i
 );
     /* Generate default slave */
     logic       hsel_default_slave;
     logic       hreadyout_default_slave;
-    logic [1:0] hresp_default_slave;
+    logic       hresp_default_slave;
 
     bus_icc_default_slave default_slave_inst (
         .hclk_i      (hclk_i),
@@ -100,7 +100,7 @@ module bus_icc_decoder (
     always_ff @(posedge hclk_i or negedge hreset_n_i) begin
         if (!hreset_n_i) begin
             data_phase_slave_code <= DEFAULT_SLAVE_CODE;
-        end else if (hready_master_stage_i) begin
+        end else if (hready_master_stage_i || (hsel_master_stage_i && htrans_master_stage_i[1] && master_stage_xfer_granted_o)) begin
             data_phase_slave_code <= addr_phase_slave_code;
         end
     end
