@@ -42,6 +42,10 @@ CORTEXM3INTEGRATIONDS.v
 JLinkLog.txt
 JLinkSettings.ini
 
+# ARM CMSIS tools
+**/sfrcc2.exe
+**/svdconv.exe
+
 # Others
 **/.dsh
 **/.temp
